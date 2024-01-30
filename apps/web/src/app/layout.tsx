@@ -3,6 +3,8 @@ import "@/styles//globals.css";
 import type { Metadata } from "next";
 import { Inter as FontSans } from "next/font/google";
 
+import { Providers } from "@/components/providers";
+
 const fontSans = FontSans({
   subsets: ["latin"],
   variable: "--font-sans"
@@ -20,7 +22,9 @@ export default function Layout({
 }>) {
   return (
     <html lang="en">
-      <body className={`font-sans ${fontSans.variable}`}>{children}</body>
+      <body className={`font-sans ${fontSans.variable}`}>
+        <Providers>{children}</Providers>
+      </body>
     </html>
   );
 }
