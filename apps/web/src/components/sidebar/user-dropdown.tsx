@@ -40,8 +40,8 @@ export function UserDropdown() {
         </div>
         <DropdownMenuSeparator />
         {[
-          { label: "Settings", path: "/dashboard/settings" },
-          { label: "Connections", path: "/dashboard/settings/connections" },
+          { label: "My Account", path: "/dashboard/account" },
+          { label: "Connections", path: "/dashboard/account/connections" },
           { label: "Sign out", path: "/dashboard/signout" },
         ].map((item, index) => (
           <DropdownMenuLinkItem href={item.path} key={index}>
