@@ -4,8 +4,21 @@
   "useTabs": false,
   "trailingComma": "none",
   "plugins": [
-    "prettier-plugin-organize-imports",
+    "@trivago/prettier-plugin-sort-imports",
     "prettier-plugin-tailwindcss"
   ],
+  "importOrder": [
+    "^react",
+    "^next",
+    "<THIRD_PARTY_MODULES>",
+    "^@/components/(.*)$",
+    "^@/ui/(.*)$",
+    "^@/data-layer/(.*)$",
+    "^@/lib/(.*)$",
+    "^@/styles/(.*)$",
+    "^[./]"
+  ],
+  "importOrderSeparation": true,
+  "importOrderSortSpecifiers": true,
   "tailwindFunctions": ["clsx", "cva", "tw"]
 }
