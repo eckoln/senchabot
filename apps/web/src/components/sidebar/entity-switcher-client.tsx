@@ -1,5 +1,7 @@
 "use client";
 
+import { useMemo } from "react";
+
 import {
   useParams,
   useRouter,
@@ -24,20 +26,17 @@ interface Props {
   }[];
 }
 
-function getCurrentEntity() {
+export function EntitySwitcherClient({ entities }: Props) {
   let platform = useSelectedLayoutSegment();
   let params = useParams<{ id: string }>();
-
-  if (platform === "twitch" || platform === "discord") {
-    return undefined;
-  }
-
-  return params.id;
-}
-
-export function EntitySwitcherClient({ entities }: Props) {
   let router = useRouter();
-  let currentEntity = getCurrentEntity();
+
+  let currentEntity = useMemo(() => {
+    if (platform === "twitch" || platform === "discord") {
+      return undefined;
+    }
+    return params.id;
+  }, [platform, params]);
 
   function pushHandler(value: string) {
     let foundEntity = entities.find((i) => value === i.id);
