@@ -1,5 +1,7 @@
 "use client";
 
+import { useMemo } from "react";
+
 import { useParams, useSelectedLayoutSegments } from "next/navigation";
 
 import {
@@ -11,30 +13,26 @@ import {
 
 import { Nav, NavItem } from "./nav";
 
-function getNavItems() {
-  let layoutSegments = useSelectedLayoutSegments();
-  let platform = layoutSegments.at(1);
-
+function getNavItems(platform: string | undefined, entityId: string) {
   if (platform !== "twitch" && platform !== "discord") {
     return null;
   }
 
-  let params = useParams<{ id: string }>();
-
-  let items = [
+  const baseRoute = `/dashboard/${platform}/${entityId}`;
+  const items = [
     {
       label: "Overview",
-      path: `/dashboard/${platform}/${params.id}/overview`,
+      path: `${baseRoute}/overview`,
       icon: HomeIcon,
     },
     {
       label: "Commands",
-      path: `/dashboard/${platform}/${params.id}/commands`,
+      path: `${baseRoute}/commands`,
       icon: ListBulletIcon,
     },
     {
       label: "Settings",
-      path: `/dashboard/${platform}/${params.id}/settings`,
+      path: `${baseRoute}/settings`,
       icon: GearIcon,
     },
   ];
@@ -42,7 +40,7 @@ function getNavItems() {
   if (platform === "discord") {
     items.splice(2, 0, {
       label: "Live Streams",
-      path: `/dashboard/${platform}/${params.id}/livestreams`,
+      path: `${baseRoute}/livestreams`,
       icon: SpeakerModerateIcon,
     });
   }
@@ -51,7 +49,14 @@ function getNavItems() {
 }
 
 export function PlatformNav() {
-  let navItems = getNavItems();
+  let layoutSegments = useSelectedLayoutSegments();
+  let currentPlatform = layoutSegments.at(1);
+  let params = useParams<{ id: string }>();
+
+  let navItems = useMemo(
+    () => getNavItems(currentPlatform, params.id),
+    [currentPlatform, params],
+  );
 
   if (!navItems) {
     return null;
