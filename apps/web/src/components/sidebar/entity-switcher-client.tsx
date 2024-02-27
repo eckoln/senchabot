@@ -27,16 +27,16 @@ interface Props {
 }
 
 export function EntitySwitcherClient({ entities }: Props) {
-  let platform = useSelectedLayoutSegment();
+  let currentPlatform = useSelectedLayoutSegment();
   let params = useParams<{ id: string }>();
   let router = useRouter();
 
   let currentEntity = useMemo(() => {
-    if (platform === "twitch" || platform === "discord") {
+    if (currentPlatform !== "twitch" && currentPlatform !== "discord") {
       return undefined;
     }
     return params.id;
-  }, [platform, params]);
+  }, [currentPlatform, params]);
 
   function pushHandler(value: string) {
     let foundEntity = entities.find((i) => value === i.id);

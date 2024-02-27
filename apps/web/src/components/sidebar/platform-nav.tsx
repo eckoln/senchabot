@@ -2,7 +2,7 @@
 
 import { useMemo } from "react";
 
-import { useParams, useSelectedLayoutSegments } from "next/navigation";
+import { useParams, useSelectedLayoutSegment } from "next/navigation";
 
 import {
   GearIcon,
@@ -13,8 +13,8 @@ import {
 
 import { Nav, NavItem } from "./nav";
 
-function getNavItems(platform: string | undefined, entityId: string) {
-  if (platform !== "twitch" && platform !== "discord") {
+function getNavItems(platform: string | null, entityId: string) {
+  if (!platform || (platform !== "twitch" && platform !== "discord")) {
     return null;
   }
 
@@ -49,8 +49,7 @@ function getNavItems(platform: string | undefined, entityId: string) {
 }
 
 export function PlatformNav() {
-  let layoutSegments = useSelectedLayoutSegments();
-  let currentPlatform = layoutSegments.at(1);
+  let currentPlatform = useSelectedLayoutSegment();
   let params = useParams<{ id: string }>();
 
   let navItems = useMemo(
