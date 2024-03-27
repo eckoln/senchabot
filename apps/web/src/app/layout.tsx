@@ -25,7 +25,7 @@ export default function Layout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={cn(
           "flex min-h-screen flex-col bg-background font-sans text-foreground antialiased",
