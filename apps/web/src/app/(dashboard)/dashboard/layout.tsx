@@ -1,6 +1,7 @@
 import { Toaster } from "react-hot-toast";
 
 import { Footer } from "@/components/footer";
+import { ProgressBar } from "@/components/progressbar";
 import { Sidebar } from "@/components/sidebar/sidebar";
 
 export default function Layout({
@@ -18,6 +19,7 @@ export default function Layout({
         </div>
       </div>
       <Toaster />
+      <ProgressBar />
     </>
   );
 }
