@@ -13,12 +13,6 @@ const nextConfig = {
         destination: "https://discord.gg/inviteId",
         permanent: true,
       },
-      // remove
-      {
-        source: "/",
-        destination: "/dashboard/discord/discord-1/overview",
-        permanent: false,
-      },
       // dashboard/account
       {
         source: "/dashboard/account",
@@ -27,13 +21,8 @@ const nextConfig = {
       },
       // dashboard/twitch
       {
-        source: "/dashboard/twitch/:id",
-        destination: "/dashboard/twitch/:id/overview",
-        permanent: true,
-      },
-      {
-        source: "/dashboard/discord/:id",
-        destination: "/dashboard/discord/:id/overview",
+        source: "/dashboard/twitch/:id/commands",
+        destination: "/dashboard/twitch/:id/commands/custom",
         permanent: true,
       },
       // dashboard/discord
