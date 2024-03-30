@@ -2,7 +2,11 @@
 
 import { useMemo } from "react";
 
-import { useParams, useSelectedLayoutSegment } from "next/navigation";
+import {
+  useParams,
+  usePathname,
+  useSelectedLayoutSegment,
+} from "next/navigation";
 
 import {
   GearIcon,
@@ -18,21 +22,21 @@ function getNavItems(platform: string | null, entityId: string) {
     return null;
   }
 
-  const baseRoute = `/dashboard/${platform}/${entityId}`;
+  const BASE_ROUTE = `/dashboard/${platform}/${entityId}`;
   const items = [
     {
       label: "Overview",
-      path: `${baseRoute}/overview`,
+      path: `${BASE_ROUTE}`,
       icon: HomeIcon,
     },
     {
       label: "Commands",
-      path: `${baseRoute}/commands`,
+      path: `${BASE_ROUTE}/commands/custom`,
       icon: ListBulletIcon,
     },
     {
       label: "Settings",
-      path: `${baseRoute}/settings`,
+      path: `${BASE_ROUTE}/settings`,
       icon: GearIcon,
     },
   ];
@@ -40,7 +44,7 @@ function getNavItems(platform: string | null, entityId: string) {
   if (platform === "discord") {
     items.splice(2, 0, {
       label: "Live Streams",
-      path: `${baseRoute}/livestreams`,
+      path: `${BASE_ROUTE}/livestreams`,
       icon: SpeakerModerateIcon,
     });
   }
@@ -51,6 +55,7 @@ function getNavItems(platform: string | null, entityId: string) {
 export function PlatformNav() {
   let currentPlatform = useSelectedLayoutSegment();
   let params = useParams<{ id: string }>();
+  let pathname = usePathname();
 
   let navItems = useMemo(
     () => getNavItems(currentPlatform, params.id),
@@ -64,7 +69,7 @@ export function PlatformNav() {
   return (
     <Nav>
       {navItems.map((item, index) => (
-        <NavItem href={item.path} key={index}>
+        <NavItem href={item.path} isActive={item.path === pathname} key={index}>
           <item.icon className="size-4" />
           <span>{item.label}</span>
         </NavItem>
