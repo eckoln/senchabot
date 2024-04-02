@@ -1,4 +1,9 @@
-import type { EntityCommands, Platforms, UserEntities } from "@/types";
+import type {
+  EntityCommands,
+  EntityLogs,
+  Platforms,
+  UserEntities,
+} from "@/types";
 
 import { fetcher } from "./utils";
 
@@ -28,4 +33,15 @@ export async function getEntityCommands(
       tags: [`getEntityCommands-${platformEntityId}-${type}`],
     },
   });
+}
+
+/*
+ * getEntityLogs
+ */
+export async function getEntityLogs(
+  platform: Platforms,
+  platformEntityId: string,
+): Promise<EntityLogs[]> {
+  let params = new URLSearchParams({ platform, platformEntityId });
+  return fetcher("/platforms/logs?" + params);
 }

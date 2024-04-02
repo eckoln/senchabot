@@ -20,3 +20,13 @@ export interface EntityCommands {
   updated_by: string;
   type: number;
 }
+
+export interface EntityLogs {
+  id: string;
+  author: string;
+  author_id: string;
+  activity: string;
+  activity_date: Date;
+  platform: Platforms;
+  platform_entity_id: string;
+}

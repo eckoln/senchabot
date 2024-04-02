@@ -1,7 +1,16 @@
-import { Badge } from "@/ui/badge";
-import { Card, CardContent, CardHeader, CardTitle } from "@/ui/card";
+import { EntityLogs } from "@/types";
 
-export async function AuditLogs() {
+import { Badge } from "@/ui/badge";
+
+import { toDate } from "@/lib/utils";
+
+import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
+
+interface Props {
+  logs: EntityLogs[];
+}
+
+export async function AuditLogs({ logs }: Props) {
   return (
     <Card className="col-span-2">
       <CardHeader>
@@ -9,22 +18,24 @@ export async function AuditLogs() {
       </CardHeader>
       <CardContent>
         <ul className="divide-y">
-          {Array.from({ length: 5 }).map((_, index) => (
-            <li
-              className="flex flex-row items-center justify-between space-x-3 py-3 first:pt-0 last:pb-0"
-              key={index}
-            >
-              <div className="space-x-3">
-                <Badge variant="secondary" className="w-fit">
-                  @username
-                </Badge>
-                <span className="text-sm">!command-{index + 1}</span>
-              </div>
-              <span className="text-xs text-muted-foreground">
-                {new Intl.DateTimeFormat("en").format(new Date())}
-              </span>
-            </li>
-          ))}
+          {logs
+            ?.map((item, index) => (
+              <li
+                className="flex flex-row items-center justify-between space-x-3 py-3 first:pt-0 last:pb-0"
+                key={index}
+              >
+                <div className="space-x-3">
+                  <Badge variant="secondary" className="w-fit">
+                    @{item.author}
+                  </Badge>
+                  <span className="text-sm">{item.activity}</span>
+                </div>
+                <span className="text-xs text-muted-foreground">
+                  {toDate(item.activity_date)}
+                </span>
+              </li>
+            ))
+            .slice(0, 10)}
         </ul>
       </CardContent>
     </Card>
