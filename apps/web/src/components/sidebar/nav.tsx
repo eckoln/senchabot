@@ -12,7 +12,7 @@ function NavItem({
   className,
   isActive = false,
   ...props
-}: React.ComponentPropsWithoutRef<"a"> & LinkProps & { isActive: boolean }) {
+}: React.ComponentPropsWithoutRef<"a"> & LinkProps & { isActive?: boolean }) {
   return (
     <Link
       className={cn(
