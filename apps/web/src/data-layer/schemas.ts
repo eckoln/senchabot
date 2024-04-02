@@ -19,5 +19,11 @@ export const updateCommandSchema = z.object({
   status: z.boolean(),
 });
 
+export const deleteCommandSchema = z.object({
+  platform: platforms,
+  platformEntityId: z.string().min(1),
+  id: z.number().min(1),
+});
+
 export type CreateCommandSchema = z.infer<typeof createCommandSchema>;
 export type UpdateCommandSchema = z.infer<typeof updateCommandSchema>;

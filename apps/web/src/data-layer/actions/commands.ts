@@ -2,7 +2,11 @@
 
 import { revalidateTag } from "next/cache";
 
-import { createCommandSchema, updateCommandSchema } from "@/data-layer/schemas";
+import {
+  createCommandSchema,
+  deleteCommandSchema,
+  updateCommandSchema,
+} from "@/data-layer/schemas";
 import { action, fetcher } from "@/data-layer/utils";
 
 /*
@@ -49,6 +53,28 @@ export const updateEntityCommand = action(
     } catch (error) {
       console.log("error:updateEntityCommand", error);
       return { error: "Error while updating command." };
+    }
+  },
+);
+
+/*
+ * deleteEntityCommand
+ */
+export const deleteEntityCommand = action(
+  deleteCommandSchema,
+  async ({ id, platform, platformEntityId }) => {
+    let params = new URLSearchParams({
+      platform,
+      platformEntityId,
+      id: id.toString(),
+    });
+
+    try {
+      await fetcher("/commands?" + params, { method: "DELETE" });
+      revalidateTag(`getEntityCommands-${platformEntityId}-custom`);
+    } catch (error) {
+      console.log("error:deleteEntityCommand", error);
+      return { error: "Error while deleting command." };
     }
   },
 );
