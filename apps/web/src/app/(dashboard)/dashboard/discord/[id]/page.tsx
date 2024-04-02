@@ -6,7 +6,17 @@ import {
   PageHeaderTitle,
 } from "@/components/page-header";
 
-export default function Page() {
+import { getEntityLogs } from "@/data-layer/queries";
+
+interface Props {
+  params: {
+    id: string;
+  };
+}
+
+export default async function Page({ params }: Props) {
+  let logs = await getEntityLogs("discord", params.id);
+
   return (
     <>
       <PageHeader>
@@ -16,7 +26,7 @@ export default function Page() {
         </PageHeaderDescription>
       </PageHeader>
       <div className="grid grid-cols-3 gap-6">
-        <AuditLogs />
+        <AuditLogs logs={logs} />
         <BotControls />
       </div>
     </>
