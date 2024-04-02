@@ -9,6 +9,6 @@ interface Props {
 }
 
 export default async function Page({ params }: Props) {
-  let commands = await getEntityCommands("discord", "custom", params.id);
-  return <CustomCommandsView platform="discord" commands={commands} />;
+  let commands = await getEntityCommands("twitch", "custom", params.id);
+  return <CustomCommandsView platform="twitch" commands={commands} />;
 }
