@@ -2,7 +2,7 @@
 
 import { revalidateTag } from "next/cache";
 
-import { createCommandSchema } from "@/data-layer/schemas";
+import { createCommandSchema, updateCommandSchema } from "@/data-layer/schemas";
 import { action, fetcher } from "@/data-layer/utils";
 
 /*
@@ -23,6 +23,32 @@ export const createEntityCommand = action(
     } catch (error) {
       console.log("error:createEntityCommand", error);
       return { error: "Error while creating command." };
+    }
+  },
+);
+
+/*
+ * updateEntityCommand
+ */
+export const updateEntityCommand = action(
+  updateCommandSchema,
+  async ({ id, platform, platformEntityId, ...values }) => {
+    let params = new URLSearchParams({
+      platform,
+      platformEntityId,
+      id: id.toString(),
+    });
+
+    try {
+      await fetcher("/commands?" + params, {
+        method: "PATCH",
+        body: JSON.stringify(values),
+      });
+
+      revalidateTag(`getEntityCommands-${platformEntityId}-custom`);
+    } catch (error) {
+      console.log("error:updateEntityCommand", error);
+      return { error: "Error while updating command." };
     }
   },
 );
