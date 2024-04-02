@@ -1,6 +1,7 @@
 import type {
   EntityCommands,
   EntityLogs,
+  EntitySettings,
   Platforms,
   UserEntities,
 } from "@/types";
@@ -44,4 +45,15 @@ export async function getEntityLogs(
 ): Promise<EntityLogs[]> {
   let params = new URLSearchParams({ platform, platformEntityId });
   return fetcher("/platforms/logs?" + params);
+}
+
+/*
+ * getEntitySettings
+ */
+export async function getEntitySettings(
+  platform: Platforms,
+  platformEntityId: string,
+): Promise<EntitySettings[]> {
+  let params = new URLSearchParams({ platform, platformEntityId });
+  return fetcher("/platforms/settings?" + params);
 }

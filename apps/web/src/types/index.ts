@@ -30,3 +30,10 @@ export interface EntityLogs {
   platform: Platforms;
   platform_entity_id: string;
 }
+
+export interface EntitySettings {
+  platform: Platforms;
+  platform_entity_id: string;
+  key: string;
+  value: string;
+}
