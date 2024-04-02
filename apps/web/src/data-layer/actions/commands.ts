@@ -1,0 +1,28 @@
+"use server";
+
+import { revalidateTag } from "next/cache";
+
+import { createCommandSchema } from "@/data-layer/schemas";
+import { action, fetcher } from "@/data-layer/utils";
+
+/*
+ * createEntityCommand
+ */
+export const createEntityCommand = action(
+  createCommandSchema,
+  async ({ platform, platformEntityId, ...values }) => {
+    let params = new URLSearchParams({ platform, platformEntityId });
+
+    try {
+      await fetcher("/commands?" + params, {
+        method: "POST",
+        body: JSON.stringify(values),
+      });
+
+      revalidateTag(`getEntityCommands-${platformEntityId}-custom`);
+    } catch (error) {
+      console.log("error:createEntityCommand", error);
+      return { error: "Error while creating command." };
+    }
+  },
+);
