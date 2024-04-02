@@ -8,7 +8,7 @@ import {
   useSelectedLayoutSegment,
 } from "next/navigation";
 
-import { GetUserEntities } from "@/types";
+import { UserEntities } from "@/types";
 
 import { DiscordIcon, TwitchIcon } from "@/components/icons";
 
@@ -21,7 +21,7 @@ import {
 } from "@/ui/select";
 
 interface Props {
-  entities: GetUserEntities[];
+  entities: UserEntities[];
 }
 
 export function EntitySwitcher({ entities }: Props) {
