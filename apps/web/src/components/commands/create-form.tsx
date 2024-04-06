@@ -118,7 +118,7 @@ export function CreateForm({ platform, setOpen }: Props) {
                     onCheckedChange={field.onChange}
                   />
                 </FormControl>
-                <FormLabel>Enabled</FormLabel>
+                <FormLabel>{field.value ? "Enabled" : "Disabled"}</FormLabel>
               </div>
               <FormMessage />
             </FormItem>

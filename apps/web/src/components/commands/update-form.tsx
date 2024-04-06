@@ -112,7 +112,7 @@ export function UpdateForm({ command }: Props) {
                     onCheckedChange={field.onChange}
                   />
                 </FormControl>
-                <FormLabel>Enabled</FormLabel>
+                <FormLabel>{field.value ? "Enabled" : "Disabled"}</FormLabel>
               </div>
               <FormMessage />
             </FormItem>
@@ -120,7 +120,7 @@ export function UpdateForm({ command }: Props) {
         />
         <div className="flex justify-end">
           <Button type="submit" disabled={isPending}>
-            {isPending ? "Loading..." : "Submit"}
+            {isPending ? "Loading..." : "Save"}
           </Button>
         </div>
       </form>
