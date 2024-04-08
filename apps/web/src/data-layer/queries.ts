@@ -2,6 +2,8 @@ import type {
   EntityCommands,
   EntityLogs,
   EntitySettings,
+  EventChannels,
+  GuildChannels,
   Platforms,
   UserEntities,
 } from "@/types";
@@ -77,5 +79,17 @@ export async function getAnnouncements(
   let params = new URLSearchParams({ platformEntityId, noCache: "true" });
   return fetcher("/livestreams/announcements?" + params, {
     next: { tags: [`getAnnouncements-${platformEntityId}`] },
+  });
+}
+
+/*
+ * getEventChannels
+ */
+export async function getEventChannels(
+  platformEntityId: string,
+): Promise<EventChannels[]> {
+  let params = new URLSearchParams({ platformEntityId, noCache: "true" });
+  return fetcher("/livestreams/event-channels?" + params, {
+    next: { tags: [`getEventChannels-${platformEntityId}`] },
   });
 }

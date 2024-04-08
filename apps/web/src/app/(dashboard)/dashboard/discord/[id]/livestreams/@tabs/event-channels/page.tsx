@@ -1,13 +1,6 @@
-import { TrashIcon } from "@radix-ui/react-icons";
+import { CreateForm } from "@/components/event-channels/create-form";
+import { DeleteButton } from "@/components/event-channels/delete-button";
 
-import { Button } from "@/ui/button";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/ui/select";
 import {
   Table,
   TableBody,
@@ -17,12 +10,37 @@ import {
   TableRow,
 } from "@/ui/table";
 
-export default function Page() {
+import { getEventChannels, getGuildChannels } from "@/data-layer/queries";
+
+interface Props {
+  params: {
+    id: string;
+  };
+}
+
+export default async function Page({ params }: Props) {
+  let [eventChannels, guildChannels] = await Promise.all([
+    getEventChannels(params.id),
+    getGuildChannels(params.id),
+  ]);
+
+  function getChannelName(id: string) {
+    return guildChannels.find((i) => i.id === id)?.name;
+  }
+
+  function getUsableChannels() {
+    const channelIds = new Set(eventChannels.map((i) => i.channel_id));
+    return guildChannels.filter((i) => !channelIds.has(i.id));
+  }
+  let usableChannels = getUsableChannels();
+
   return (
     <div className="w-full max-w-xl space-y-4">
       <div className="flex h-9 items-center justify-between">
-        <p className="text-sm text-muted-foreground">{3} items found.</p>
-        <CreateButton />
+        <p className="text-sm text-muted-foreground">
+          {eventChannels?.length} items found.
+        </p>
+        <CreateForm guildChannels={usableChannels} />
       </div>
       <div className="relative w-full overflow-auto rounded-md border bg-card">
         <Table className="table-fixed">
@@ -33,11 +51,11 @@ export default function Page() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {Array.from({ length: 3 }).map((_, index) => (
-              <TableRow key={index}>
-                <TableCell>channel-{index + 1}</TableCell>
+            {eventChannels?.map((item) => (
+              <TableRow key={item.id}>
+                <TableCell>{getChannelName(item.channel_id)}</TableCell>
                 <TableCell className="text-end">
-                  <DeleteButton />
+                  <DeleteButton channel={item} />
                 </TableCell>
               </TableRow>
             ))}
@@ -45,35 +63,5 @@ export default function Page() {
         </Table>
       </div>
     </div>
-  );
-}
-
-function DeleteButton() {
-  return (
-    <Button variant="destructive" size="icon" className="size-8">
-      <TrashIcon className="size-4" />
-    </Button>
-  );
-}
-
-function CreateButton() {
-  return (
-    <form className="flex flex-row space-x-2">
-      <Select>
-        <SelectTrigger className="w-full min-w-48">
-          <SelectValue placeholder="Select Channel" />
-        </SelectTrigger>
-        <SelectContent>
-          {Array.from({ length: 5 }).map((_, index) => (
-            <SelectItem value={`channel-${index + 4}`} key={index}>
-              channel-{index + 4}
-            </SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
-      <Button type="submit" variant="default">
-        Add
-      </Button>
-    </form>
   );
 }

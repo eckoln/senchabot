@@ -57,3 +57,11 @@ export interface Announcements {
   created_by: string;
   created_at: Date;
 }
+
+export interface EventChannels {
+  id: number;
+  channel_id: string;
+  server_id: string;
+  created_by: string;
+  created_at: string;
+}
