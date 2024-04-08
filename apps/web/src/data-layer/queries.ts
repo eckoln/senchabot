@@ -57,3 +57,25 @@ export async function getEntitySettings(
   let params = new URLSearchParams({ platform, platformEntityId });
   return fetcher("/platforms/settings?" + params);
 }
+
+/*
+ * getGuildChannels
+ */
+export async function getGuildChannels(
+  platformEntityId: string,
+): Promise<GuildChannels[]> {
+  let params = new URLSearchParams({ platformEntityId, noCache: "true" });
+  return fetcher("/discord/guild-channels?" + params);
+}
+
+/*
+ * getAnnouncements
+ */
+export async function getAnnouncements(
+  platformEntityId: string,
+): Promise<Announcements[]> {
+  let params = new URLSearchParams({ platformEntityId, noCache: "true" });
+  return fetcher("/livestreams/announcements?" + params, {
+    next: { tags: [`getAnnouncements-${platformEntityId}`] },
+  });
+}

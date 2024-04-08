@@ -1,7 +1,6 @@
-import { PlusIcon, TrashIcon } from "@radix-ui/react-icons";
+import { CreateButton } from "@/components/announcements/create-buton";
+import { DeleteButton } from "@/components/announcements/delete-button";
 
-import { Button } from "@/ui/button";
-import { Switch } from "@/ui/switch";
 import {
   Table,
   TableBody,
@@ -11,18 +10,36 @@ import {
   TableRow,
 } from "@/ui/table";
 
-export default function Page() {
+import { getAnnouncements, getGuildChannels } from "@/data-layer/queries";
+
+interface Props {
+  params: {
+    id: string;
+  };
+}
+
+export default async function Page({ params }: Props) {
+  let [announcements, guildChannels] = await Promise.all([
+    getAnnouncements(params.id),
+    getGuildChannels(params.id),
+  ]);
+
+  function getChannelName(id: string) {
+    return guildChannels.find((i) => i.id === id)?.name;
+  }
+
   return (
     <div className="w-full max-w-xl space-y-4">
       <div className="flex h-9 items-center justify-between">
-        <p className="text-sm text-muted-foreground">{4} items found.</p>
-        <CreateButton />
+        <p className="text-sm text-muted-foreground">
+          {announcements?.length} items found.
+        </p>
+        <CreateButton guildChannels={guildChannels} />
       </div>
       <div className="relative w-full overflow-auto rounded-md border bg-card">
         <Table className="table-fixed">
           <TableHeader>
             <TableRow>
-              <TableHead className="w-20">Status</TableHead>
               <TableHead>Streamer Name</TableHead>
               <TableHead>Channel</TableHead>
               <TableHead>Last Sent</TableHead>
@@ -30,22 +47,17 @@ export default function Page() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {Array.from({ length: 4 }).map((_, index) => (
-              <TableRow key={index}>
+            {announcements?.map((item) => (
+              <TableRow key={item.id}>
+                <TableCell>{item.twitch_username}</TableCell>
                 <TableCell>
-                  <div className="flex items-center">
-                    <Switch defaultChecked={true} />
-                  </div>
+                  <p className="truncate">
+                    {getChannelName(item.anno_channel_id)}
+                  </p>
                 </TableCell>
-                <TableCell>streamer-{index + 1}</TableCell>
-                <TableCell>
-                  <p className="truncate">channel-{index + 1}</p>
-                </TableCell>
-                <TableCell>
-                  {new Intl.DateTimeFormat("en").format(new Date())}
-                </TableCell>
+                <TableCell>{null}</TableCell>
                 <TableCell className="text-end">
-                  <DeleteButton />
+                  <DeleteButton anno={item} />
                 </TableCell>
               </TableRow>
             ))}
@@ -53,22 +65,5 @@ export default function Page() {
         </Table>
       </div>
     </div>
-  );
-}
-
-function DeleteButton() {
-  return (
-    <Button variant="destructive" size="icon" className="size-8">
-      <TrashIcon className="size-4" />
-    </Button>
-  );
-}
-
-function CreateButton() {
-  return (
-    <Button>
-      <PlusIcon className="size-4" />
-      <span>Add New Streamer</span>
-    </Button>
   );
 }
