@@ -1,4 +1,4 @@
-import { CreateButton } from "@/components/announcements/create-buton";
+import { CreateButton } from "@/components/announcements/create-button";
 import { DeleteButton } from "@/components/announcements/delete-button";
 
 import {
