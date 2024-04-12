@@ -1,129 +1,104 @@
 "use client";
 
-import { useTransition } from "react";
-import { useForm } from "react-hook-form";
+import { useEffect } from "react";
+import { useFormState, useFormStatus } from "react-dom";
 import toast from "react-hot-toast";
 
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 import type { EntityCommands } from "@/types";
-import { zodResolver } from "@hookform/resolvers/zod";
+
+import { IconSpinner } from "@/components/icons";
 
 import { Button } from "@/ui/button";
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/ui/form";
 import { Input } from "@/ui/input";
+import { Label } from "@/ui/label";
+import { Link } from "@/ui/link";
 import { Switch } from "@/ui/switch";
 
 import { updateEntityCommand } from "@/data-layer/actions/commands";
-import {
-  type UpdateCommandSchema,
-  updateCommandSchema,
-} from "@/data-layer/schemas";
 
 interface Props {
   command: EntityCommands;
 }
 
 export function UpdateForm({ command }: Props) {
-  let [isPending, startTransition] = useTransition();
+  let router = useRouter();
 
-  let form = useForm<UpdateCommandSchema>({
-    resolver: zodResolver(updateCommandSchema),
-    defaultValues: {
-      platform: command.platform,
-      platformEntityId: command.platform_entity_id,
-      id: command.id,
-      command_name: command.name,
-      command_content: command.content,
-      status: command.status,
-    },
-  });
+  let [result, dispatch] = useFormState(updateEntityCommand, undefined);
 
-  function onSubmit(values: UpdateCommandSchema) {
-    startTransition(async () => {
-      let res = await updateEntityCommand(values);
-
-      if (res.data?.error) {
-        toast.error(res.data.error);
-        return;
+  useEffect(() => {
+    if (result) {
+      if (!result.success) {
+        toast.error(result.message);
+      } else {
+        router.refresh();
+        toast.success(result.message);
       }
-
-      toast.success("Command successfully updated.");
-    });
-  }
+    }
+  }, [result, router]);
 
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-        <FormField
+    <form
+      className="space-y-8"
+      action={(formData) => {
+        formData.append("platform", command.platform);
+        formData.append("platformEntityId", command.platform_entity_id);
+        formData.append("id", String(command.id));
+        dispatch(formData);
+      }}
+    >
+      <div className="space-y-1">
+        <Label htmlFor="command_name">Name</Label>
+        <Input
+          type="text"
+          id="command_name"
           name="command_name"
-          control={form.control}
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Name</FormLabel>
-              <FormControl>
-                <Input placeholder="" {...field} readOnly disabled />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
+          defaultValue={command.name}
+          disabled
         />
-        <FormField
-          name="command_content"
-          control={form.control}
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Content</FormLabel>
-              <FormControl>
-                <Input placeholder="" {...field} />
-              </FormControl>
-              <FormDescription>
-                See our{" "}
-                <Link
-                  href="https://docs.senchabot.app/twitch-bot/variables"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  docs page
-                </Link>{" "}
-                for more variables.
-              </FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          name="status"
-          control={form.control}
-          render={({ field }) => (
-            <FormItem>
-              <div className="flex items-center space-x-2">
-                <FormControl>
-                  <Switch
-                    checked={field.value}
-                    onCheckedChange={field.onChange}
-                  />
-                </FormControl>
-                <FormLabel>{field.value ? "Enabled" : "Disabled"}</FormLabel>
-              </div>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <div className="flex justify-end">
-          <Button type="submit" disabled={isPending}>
-            {isPending ? "Loading..." : "Save"}
-          </Button>
+      </div>
+      <div className="space-y-2">
+        <div className="space-y-1">
+          <Label htmlFor="command_content">Content</Label>
+          <Input
+            type="text"
+            id="command_content"
+            name="command_content"
+            placeholder=""
+            defaultValue={command.content}
+            required
+          />
         </div>
-      </form>
-    </Form>
+        <p className="text-xs">
+          See our{" "}
+          <Link
+            href="https://docs.senchabot.app/twitch-bot/variables"
+            target="_blank"
+            rel="noreferrer"
+          >
+            docs page
+          </Link>{" "}
+          for more variables.
+        </p>
+      </div>
+      <div className="flex items-center space-x-2">
+        <Switch id="status" name="status" defaultChecked={command.status} />
+        <Label htmlFor="status">Enabled</Label>
+      </div>
+      <SubmitButton />
+    </form>
+  );
+}
+
+function SubmitButton() {
+  let { pending } = useFormStatus();
+
+  return (
+    <div className="flex justify-end">
+      <Button type="submit" disabled={pending}>
+        {pending ? <IconSpinner /> : "Save"}
+      </Button>
+    </div>
   );
 }
