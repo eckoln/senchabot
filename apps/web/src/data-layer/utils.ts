@@ -9,19 +9,31 @@ function getUserAccessToken() {
   return env.TEST_BEARER_TOKEN;
 }
 
-export async function fetcher(endpoint: string, options?: RequestInit) {
-  let res = await fetch(BASE_URL + endpoint, {
+export async function fetcher<JSON = any>(
+  endpoint: RequestInfo,
+  options?: RequestInit,
+): Promise<JSON> {
+  const res = await fetch(BASE_URL + endpoint, {
     headers: {
+      ...options?.headers,
       Authorization: getUserAccessToken(),
       "Content-Type": "application/json",
-      ...options?.headers,
     },
-    cache: "no-store",
     ...options,
+    cache: "no-store",
   });
 
   if (!res.ok) {
-    throw new Error(`Error while fetching. Status: ${res.status}`);
+    const json = await res.json();
+    if (json.message) {
+      const error = new Error(json.message) as Error & {
+        status: number;
+      };
+      error.status = res.status;
+      throw error;
+    } else {
+      throw new Error("An unexpected error occurred");
+    }
   }
 
   return res.json();
