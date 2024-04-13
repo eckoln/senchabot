@@ -3,9 +3,9 @@ import {
   PageHeaderDescription,
   PageHeaderTitle,
 } from "@/components/page-header";
-import { DiscordSettingsForm } from "@/components/settings/discord-settings-form";
+import { TwitchSettingsForm } from "@/components/settings/twitch-settings-form";
 
-import { getEntitySettings, getGuildChannels } from "@/data-layer/queries";
+import { getEntitySettings } from "@/data-layer/queries";
 
 interface Props {
   params: {
@@ -14,10 +14,7 @@ interface Props {
 }
 
 export default async function Page({ params }: Props) {
-  let [defaultSettings, guildChannels] = await Promise.all([
-    getEntitySettings("discord", params.id),
-    getGuildChannels(params.id),
-  ]);
+  let defaultSettings = await getEntitySettings("twitch", params.id);
 
   return (
     <>
@@ -28,10 +25,7 @@ export default async function Page({ params }: Props) {
         </PageHeaderDescription>
       </PageHeader>
       <div className="max-w-xl">
-        <DiscordSettingsForm
-          defaultSettings={defaultSettings}
-          guildChannels={guildChannels}
-        />
+        <TwitchSettingsForm defaultSettings={defaultSettings} />
       </div>
     </>
   );

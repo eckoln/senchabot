@@ -35,7 +35,10 @@ export function CreateButton({ platform }: Props) {
         <DialogHeader>
           <DialogTitle>Add New Command</DialogTitle>
           <div className="py-4">
-            <CreateForm platform={platform} setOpen={setOpen} />
+            <CreateForm
+              platform={platform}
+              afterSubmission={() => setOpen(false)}
+            />
           </div>
         </DialogHeader>
       </DialogContent>
