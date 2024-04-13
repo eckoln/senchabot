@@ -20,10 +20,10 @@ import { createEntityCommand } from "@/data-layer/actions/commands";
 
 interface Props {
   platform: Platforms;
-  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  afterSubmission: () => void;
 }
 
-export function CreateForm({ platform, setOpen }: Props) {
+export function CreateForm({ platform, afterSubmission }: Props) {
   let router = useRouter();
   let params = useParams<{ id: string }>();
 
@@ -34,12 +34,12 @@ export function CreateForm({ platform, setOpen }: Props) {
       if (!result.success) {
         toast.error(result.message);
       } else {
-        setOpen(false);
+        afterSubmission();
         router.refresh();
         toast.success(result.message);
       }
     }
-  }, [result, router]);
+  }, [result, router, afterSubmission]);
 
   return (
     <form

@@ -35,7 +35,10 @@ export function CreateButton({ guildChannels }: Props) {
         <DialogHeader>
           <DialogTitle>Add New Announcement</DialogTitle>
           <div className="py-4">
-            <CreateForm guildChannels={guildChannels} setOpen={setOpen} />
+            <CreateForm
+              guildChannels={guildChannels}
+              afterSubmission={() => setOpen(false)}
+            />
           </div>
         </DialogHeader>
       </DialogContent>

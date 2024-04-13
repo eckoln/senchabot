@@ -26,10 +26,10 @@ import { createAnnouncement } from "@/data-layer/actions/announcements";
 
 interface Props {
   guildChannels: GuildChannels[];
-  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  afterSubmission: () => void;
 }
 
-export function CreateForm({ guildChannels, setOpen }: Props) {
+export function CreateForm({ guildChannels, afterSubmission }: Props) {
   let router = useRouter();
   let params = useParams<{ id: string }>();
 
@@ -40,12 +40,12 @@ export function CreateForm({ guildChannels, setOpen }: Props) {
       if (!result.success) {
         toast.error(result.message);
       } else {
-        setOpen(false);
+        afterSubmission();
         router.refresh();
         toast.success(result.message);
       }
     }
-  }, [result, router]);
+  }, [result, router, afterSubmission]);
 
   return (
     <form
