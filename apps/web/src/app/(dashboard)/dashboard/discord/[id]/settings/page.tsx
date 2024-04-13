@@ -3,9 +3,22 @@ import {
   PageHeaderDescription,
   PageHeaderTitle,
 } from "@/components/page-header";
-import { SwitchItem } from "@/components/settings/switch-item";
+import { DiscordSettingsForm } from "@/components/settings/discord-settings-form";
 
-export default function Page() {
+import { getEntitySettings, getGuildChannels } from "@/data-layer/queries";
+
+interface Props {
+  params: {
+    id: string;
+  };
+}
+
+export default async function Page({ params }: Props) {
+  let [defaultSettings, guildChannels] = await Promise.all([
+    getEntitySettings("discord", params.id),
+    getGuildChannels(params.id),
+  ]);
+
   return (
     <>
       <PageHeader>
@@ -14,18 +27,10 @@ export default function Page() {
           This is settings page description.
         </PageHeaderDescription>
       </PageHeader>
-      <div className="grid grid-cols-3 gap-6">
-        <SwitchItem
-          id="activity_logs"
-          label="Activity Logs"
-          description="Keep logs about to your channel activity."
-          defaultChecked={true}
-        />
-        <SwitchItem
-          id="allow_moderators"
-          label="Allow Moderators"
-          description="Your moderators manage bot commands."
-          defaultChecked={false}
+      <div className="max-w-xl">
+        <DiscordSettingsForm
+          defaultSettings={defaultSettings}
+          guildChannels={guildChannels}
         />
       </div>
     </>

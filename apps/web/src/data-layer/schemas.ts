@@ -62,6 +62,16 @@ export const updateTwitchSettingsSchema = z.object({
   mods_manage_cmds_enabled: z.coerce.boolean(),
 });
 
+export const updateDiscordSettingsSchema = z.object({
+  platform: platforms,
+  platformEntityId: z.string().min(1),
+  bot_activity_enabled: z.coerce.boolean(),
+  mods_manage_cmds_enabled: z.coerce.boolean(),
+  stream_anno_default_channel: z.string().optional(),
+  stream_anno_default_content: z.string().optional(),
+  stream_anno_cooldown: z.coerce.number().min(1),
+});
+
 /*
  * TYPES
  */
@@ -74,4 +84,7 @@ export type CreateEventChannelSchema = z.infer<typeof createEventChannelSchema>;
 export type DeleteEventChannelSchema = z.infer<typeof deleteEventChannelSchema>;
 export type UpdateTwitchSettingsSchema = z.infer<
   typeof updateTwitchSettingsSchema
+>;
+export type UpdateDiscordSettingsSchema = z.infer<
+  typeof updateDiscordSettingsSchema
 >;
