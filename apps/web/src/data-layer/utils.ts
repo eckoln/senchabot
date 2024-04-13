@@ -1,5 +1,3 @@
-import { createSafeActionClient } from "next-safe-action";
-
 import { env } from "@/env";
 
 let BASE_URL = "https://api.senchabot.dev/v1/me";
@@ -38,5 +36,3 @@ export async function fetcher<JSON = any>(
 
   return res.json();
 }
-
-export const action = createSafeActionClient();
