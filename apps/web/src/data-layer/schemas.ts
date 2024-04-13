@@ -53,6 +53,16 @@ export const deleteEventChannelSchema = z.object({
 });
 
 /*
+ * PLATFORM SETTINGS
+ */
+export const updateTwitchSettingsSchema = z.object({
+  platform: platforms,
+  platformEntityId: z.string().min(1),
+  bot_activity_enabled: z.coerce.boolean(),
+  mods_manage_cmds_enabled: z.coerce.boolean(),
+});
+
+/*
  * TYPES
  */
 export type CreateCommandSchema = z.infer<typeof createCommandSchema>;
@@ -62,3 +72,6 @@ export type CreateAnnouncementSchema = z.infer<typeof createAnnouncementSchema>;
 export type DeleteAnnouncementSchema = z.infer<typeof deleteAnnouncementSchema>;
 export type CreateEventChannelSchema = z.infer<typeof createEventChannelSchema>;
 export type DeleteEventChannelSchema = z.infer<typeof deleteEventChannelSchema>;
+export type UpdateTwitchSettingsSchema = z.infer<
+  typeof updateTwitchSettingsSchema
+>;
