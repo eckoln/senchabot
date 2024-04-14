@@ -1,4 +1,3 @@
-import type { EntityCommands } from "@/types";
 import { Pencil2Icon } from "@radix-ui/react-icons";
 
 import { Button } from "@/ui/button";
@@ -9,6 +8,8 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/ui/dialog";
+
+import type { EntityCommands } from "@/lib/types";
 
 import { UpdateForm } from "./update-form";
 

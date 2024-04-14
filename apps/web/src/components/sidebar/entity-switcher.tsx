@@ -8,8 +8,6 @@ import {
   useSelectedLayoutSegment,
 } from "next/navigation";
 
-import { UserEntities } from "@/types";
-
 import { DiscordIcon, TwitchIcon } from "@/components/icons";
 
 import {
@@ -19,6 +17,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/ui/select";
+
+import type { UserEntities } from "@/lib/types";
 
 interface Props {
   entities: UserEntities[];

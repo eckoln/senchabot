@@ -7,7 +7,7 @@ import type {
   GuildChannels,
   Platforms,
   UserEntities,
-} from "@/types";
+} from "@/lib/types";
 
 import { fetcher } from "./utils";
 

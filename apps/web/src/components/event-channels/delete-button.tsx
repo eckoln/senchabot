@@ -5,7 +5,6 @@ import toast from "react-hot-toast";
 
 import { useRouter } from "next/navigation";
 
-import type { EventChannels } from "@/types";
 import { TrashIcon } from "@radix-ui/react-icons";
 
 import { IconSpinner } from "@/components/icons";
@@ -13,6 +12,8 @@ import { IconSpinner } from "@/components/icons";
 import { Button } from "@/ui/button";
 
 import { deleteEventChannel } from "@/data-layer/actions/eventChannels";
+
+import type { EventChannels } from "@/lib/types";
 
 interface Props {
   channel: EventChannels;

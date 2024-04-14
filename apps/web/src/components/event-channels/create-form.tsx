@@ -6,8 +6,6 @@ import toast from "react-hot-toast";
 
 import { useParams, useRouter } from "next/navigation";
 
-import { GuildChannels } from "@/types";
-
 import { IconSpinner } from "@/components/icons";
 
 import { Button } from "@/ui/button";
@@ -20,6 +18,8 @@ import {
 } from "@/ui/select";
 
 import { createEventChannel } from "@/data-layer/actions/eventChannels";
+
+import type { GuildChannels } from "@/lib/types";
 
 interface Props {
   guildChannels: GuildChannels[];

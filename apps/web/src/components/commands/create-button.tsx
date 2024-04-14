@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 
-import type { Platforms } from "@/types";
 import { PlusIcon } from "@radix-ui/react-icons";
 
 import { Button } from "@/ui/button";
@@ -13,6 +12,8 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/ui/dialog";
+
+import type { Platforms } from "@/lib/types";
 
 import { CreateForm } from "./create-form";
 

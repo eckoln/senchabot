@@ -6,8 +6,6 @@ import toast from "react-hot-toast";
 
 import { useParams, useRouter } from "next/navigation";
 
-import { Platforms } from "@/types";
-
 import { IconSpinner } from "@/components/icons";
 
 import { Button } from "@/ui/button";
@@ -17,6 +15,8 @@ import { Link } from "@/ui/link";
 import { Switch } from "@/ui/switch";
 
 import { createEntityCommand } from "@/data-layer/actions/commands";
+
+import type { Platforms } from "@/lib/types";
 
 interface Props {
   platform: Platforms;

@@ -6,8 +6,6 @@ import toast from "react-hot-toast";
 
 import { useParams, useRouter } from "next/navigation";
 
-import type { EntitySettings } from "@/types";
-
 import { IconSpinner } from "@/components/icons";
 
 import { Button } from "@/ui/button";
@@ -15,6 +13,8 @@ import { Label } from "@/ui/label";
 import { Switch } from "@/ui/switch";
 
 import { updateTwitchSettings } from "@/data-layer/actions/settings";
+
+import type { EntitySettings } from "@/lib/types";
 
 interface Props {
   defaultSettings: EntitySettings[];

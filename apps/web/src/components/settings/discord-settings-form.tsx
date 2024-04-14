@@ -6,8 +6,6 @@ import toast from "react-hot-toast";
 
 import { useParams, useRouter } from "next/navigation";
 
-import type { EntitySettings, GuildChannels } from "@/types";
-
 import { IconSpinner } from "@/components/icons";
 
 import { Button } from "@/ui/button";
@@ -23,6 +21,8 @@ import {
 import { Switch } from "@/ui/switch";
 
 import { updateDiscordSettings } from "@/data-layer/actions/settings";
+
+import type { EntitySettings, GuildChannels } from "@/lib/types";
 
 interface Props {
   defaultSettings: EntitySettings[];

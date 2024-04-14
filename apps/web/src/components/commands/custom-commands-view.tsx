@@ -1,4 +1,3 @@
-import type { EntityCommands, Platforms } from "@/types";
 import { Share1Icon } from "@radix-ui/react-icons";
 
 import { Button } from "@/ui/button";
@@ -11,6 +10,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/ui/table";
+
+import type { EntityCommands, Platforms } from "@/lib/types";
 
 import { CreateButton } from "./create-button";
 import { DeleteButton } from "./delete-button";

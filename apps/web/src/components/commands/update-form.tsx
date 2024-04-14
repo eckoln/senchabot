@@ -6,8 +6,6 @@ import toast from "react-hot-toast";
 
 import { useRouter } from "next/navigation";
 
-import type { EntityCommands } from "@/types";
-
 import { IconSpinner } from "@/components/icons";
 
 import { Button } from "@/ui/button";
@@ -17,6 +15,8 @@ import { Link } from "@/ui/link";
 import { Switch } from "@/ui/switch";
 
 import { updateEntityCommand } from "@/data-layer/actions/commands";
+
+import type { EntityCommands } from "@/lib/types";
 
 interface Props {
   command: EntityCommands;

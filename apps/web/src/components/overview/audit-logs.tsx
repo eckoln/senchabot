@@ -1,7 +1,6 @@
-import { EntityLogs } from "@/types";
-
 import { Badge } from "@/ui/badge";
 
+import type { EntityLogs } from "@/lib/types";
 import { toDate } from "@/lib/utils";
 
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";

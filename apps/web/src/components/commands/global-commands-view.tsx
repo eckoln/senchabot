@@ -1,5 +1,3 @@
-import type { EntityCommands } from "@/types";
-
 import {
   Table,
   TableBody,
@@ -8,6 +6,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/ui/table";
+
+import type { EntityCommands } from "@/lib/types";
 
 interface Props {
   commands: EntityCommands[];
