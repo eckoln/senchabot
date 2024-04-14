@@ -24,48 +24,54 @@ export function CustomCommandsView({ platform, commands }: Props) {
     <div className="space-y-4">
       <div className="flex h-9 items-center justify-between">
         <p className="text-sm text-muted-foreground">
-          {commands?.length} items found.
+          {commands.length} items found.
         </p>
         <div className="flex flex-row space-x-3">
           <ShareButton />
           <CreateButton platform={platform} />
         </div>
       </div>
-      <div className="relative w-full overflow-auto rounded-md border bg-card">
-        <Table className="table-fixed">
-          <TableHeader>
-            <TableRow>
-              <TableHead className="w-20">Status</TableHead>
-              <TableHead>Name</TableHead>
-              <TableHead>Content</TableHead>
-              <TableHead />
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {commands?.map(item => (
-              <TableRow key={item.id}>
-                <TableCell>
-                  <div className="flex items-center">
-                    <Switch defaultChecked={item.status} />
-                  </div>
-                </TableCell>
-                <TableCell>!{item.name}</TableCell>
-                <TableCell>
-                  <p className="truncate" title={item.content}>
-                    {item.content}
-                  </p>
-                </TableCell>
-                <TableCell>
-                  <div className="flex justify-end space-x-1.5">
-                    <UpdateButton command={item} />
-                    <DeleteButton command={item} />
-                  </div>
-                </TableCell>
+      {Boolean(commands.length) ? (
+        <div className="relative w-full overflow-auto rounded-md border bg-card">
+          <Table className="table-fixed">
+            <TableHeader>
+              <TableRow>
+                <TableHead className="w-20">Status</TableHead>
+                <TableHead>Name</TableHead>
+                <TableHead>Content</TableHead>
+                <TableHead />
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </div>
+            </TableHeader>
+            <TableBody>
+              {commands.map(item => (
+                <TableRow key={item.id}>
+                  <TableCell>
+                    <div className="flex items-center">
+                      <Switch defaultChecked={item.status} />
+                    </div>
+                  </TableCell>
+                  <TableCell>!{item.name}</TableCell>
+                  <TableCell>
+                    <p className="truncate" title={item.content}>
+                      {item.content}
+                    </p>
+                  </TableCell>
+                  <TableCell>
+                    <div className="flex justify-end space-x-1.5">
+                      <UpdateButton command={item} />
+                      <DeleteButton command={item} />
+                    </div>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </div>
+      ) : (
+        <div className="flex justify-center">
+          <p>You not have any command.</p>
+        </div>
+      )}
     </div>
   )
 }

@@ -30,38 +30,44 @@ export default async function Page({ params }: Props) {
     <>
       <div className="flex h-9 items-center justify-between">
         <p className="text-sm text-muted-foreground">
-          {announcements?.length} items found.
+          {announcements.length} items found.
         </p>
         <CreateButton guildChannels={guildChannels} />
       </div>
-      <div className="relative w-full overflow-auto rounded-md border bg-card">
-        <Table className="table-fixed">
-          <TableHeader>
-            <TableRow>
-              <TableHead>Streamer Name</TableHead>
-              <TableHead>Channel</TableHead>
-              <TableHead>Last Sent</TableHead>
-              <TableHead className="w-20" />
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {announcements?.map(item => (
-              <TableRow key={item.id}>
-                <TableCell>{item.twitch_username}</TableCell>
-                <TableCell>
-                  <p className="truncate">
-                    {getChannelName(item.anno_channel_id)}
-                  </p>
-                </TableCell>
-                <TableCell>{null}</TableCell>
-                <TableCell className="text-end">
-                  <DeleteButton anno={item} />
-                </TableCell>
+      {Boolean(announcements.length) ? (
+        <div className="relative w-full overflow-auto rounded-md border bg-card">
+          <Table className="table-fixed">
+            <TableHeader>
+              <TableRow>
+                <TableHead>Streamer Name</TableHead>
+                <TableHead>Channel</TableHead>
+                <TableHead>Last Sent</TableHead>
+                <TableHead className="w-20" />
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </div>
+            </TableHeader>
+            <TableBody>
+              {announcements.map(item => (
+                <TableRow key={item.id}>
+                  <TableCell>{item.twitch_username}</TableCell>
+                  <TableCell>
+                    <p className="truncate">
+                      {getChannelName(item.anno_channel_id)}
+                    </p>
+                  </TableCell>
+                  <TableCell>{null}</TableCell>
+                  <TableCell className="text-end">
+                    <DeleteButton anno={item} />
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </div>
+      ) : (
+        <div className="flex justify-center">
+          <p>You not have any announcement.</p>
+        </div>
+      )}
     </>
   )
 }

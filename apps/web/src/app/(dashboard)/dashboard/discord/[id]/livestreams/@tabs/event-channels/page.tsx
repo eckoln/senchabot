@@ -36,30 +36,36 @@ export default async function Page({ params }: Props) {
     <>
       <div className="flex h-9 items-center justify-between">
         <p className="text-sm text-muted-foreground">
-          {eventChannels?.length} items found.
+          {eventChannels.length} items found.
         </p>
         <CreateForm guildChannels={usableChannels} />
       </div>
-      <div className="relative w-full overflow-auto rounded-md border bg-card">
-        <Table className="table-fixed">
-          <TableHeader>
-            <TableRow>
-              <TableHead>Channel</TableHead>
-              <TableHead />
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {eventChannels?.map(item => (
-              <TableRow key={item.id}>
-                <TableCell>{getChannelName(item.channel_id)}</TableCell>
-                <TableCell className="text-end">
-                  <DeleteButton channel={item} />
-                </TableCell>
+      {Boolean(eventChannels.length) ? (
+        <div className="relative w-full overflow-auto rounded-md border bg-card">
+          <Table className="table-fixed">
+            <TableHeader>
+              <TableRow>
+                <TableHead>Channel</TableHead>
+                <TableHead />
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </div>
+            </TableHeader>
+            <TableBody>
+              {eventChannels.map(item => (
+                <TableRow key={item.id}>
+                  <TableCell>{getChannelName(item.channel_id)}</TableCell>
+                  <TableCell className="text-end">
+                    <DeleteButton channel={item} />
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </div>
+      ) : (
+        <div className="flex justify-center">
+          <p>You not have any event channel.</p>
+        </div>
+      )}
     </>
   )
 }
