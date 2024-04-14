@@ -1,11 +1,11 @@
-"use server";
+'use server'
 
 import {
   type DeleteEventChannelSchema,
   createEventChannelSchema,
   deleteEventChannelSchema,
-} from "@/data-layer/schemas";
-import { fetcher } from "@/data-layer/utils";
+} from '@/data-layer/schemas'
+import { fetcher } from '@/data-layer/utils'
 
 /*
  * createEventChannel
@@ -14,35 +14,35 @@ export async function createEventChannel(
   _prevState: { success: boolean; message: string } | undefined,
   formData: FormData,
 ) {
-  let entries = Object.fromEntries(formData);
-  let parsed = createEventChannelSchema.safeParse(entries);
+  let entries = Object.fromEntries(formData)
+  let parsed = createEventChannelSchema.safeParse(entries)
 
   if (!parsed.success) {
     return {
       success: false,
-      message: "Invalid submission!",
-    };
+      message: 'Invalid submission!',
+    }
   }
 
-  let { platformEntityId, ...input } = parsed.data;
+  let { platformEntityId, ...input } = parsed.data
 
   try {
-    let params = new URLSearchParams({ platformEntityId });
-    await fetcher("/livestreams/event-channels?" + params, {
-      method: "POST",
+    let params = new URLSearchParams({ platformEntityId })
+    await fetcher('/livestreams/event-channels?' + params, {
+      method: 'POST',
       body: JSON.stringify(input),
-    });
+    })
 
     return {
       success: true,
-      message: "Successfuly added.",
-    };
+      message: 'Successfuly added.',
+    }
   } catch (error) {
-    console.log("createEventChannel =>", error);
+    console.log('createEventChannel =>', error)
     return {
       success: false,
-      message: "Something went wrong!",
-    };
+      message: 'Something went wrong!',
+    }
   }
 }
 
@@ -50,32 +50,32 @@ export async function createEventChannel(
  * deleteEventChannel
  */
 export async function deleteEventChannel(input: DeleteEventChannelSchema) {
-  let parsed = deleteEventChannelSchema.safeParse(input);
+  let parsed = deleteEventChannelSchema.safeParse(input)
 
   if (!parsed.success) {
     return {
       success: false,
-      message: "Invalid submission!",
-    };
+      message: 'Invalid submission!',
+    }
   }
 
-  let { id, platformEntityId } = parsed.data;
+  let { id, platformEntityId } = parsed.data
 
   try {
-    let params = new URLSearchParams({ platformEntityId });
+    let params = new URLSearchParams({ platformEntityId })
     await fetcher(`/livestreams/event-channels/${id}?` + params, {
-      method: "DELETE",
-    });
+      method: 'DELETE',
+    })
 
     return {
       success: true,
-      message: "Successfully deleted.",
-    };
+      message: 'Successfully deleted.',
+    }
   } catch (error) {
-    console.log("deleteEventChannel =>", error);
+    console.log('deleteEventChannel =>', error)
     return {
       success: false,
-      message: "Something went wrong!",
-    };
+      message: 'Something went wrong!',
+    }
   }
 }

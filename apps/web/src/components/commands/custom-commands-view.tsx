@@ -1,7 +1,9 @@
-import { Share1Icon } from "@radix-ui/react-icons";
-
-import { Button } from "@/ui/button";
-import { Switch } from "@/ui/switch";
+import { CreateButton } from './create-button'
+import { DeleteButton } from './delete-button'
+import { UpdateButton } from './update-button'
+import type { EntityCommands, Platforms } from '@/lib/types'
+import { Button } from '@/ui/button'
+import { Switch } from '@/ui/switch'
 import {
   Table,
   TableBody,
@@ -9,17 +11,12 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/ui/table";
-
-import type { EntityCommands, Platforms } from "@/lib/types";
-
-import { CreateButton } from "./create-button";
-import { DeleteButton } from "./delete-button";
-import { UpdateButton } from "./update-button";
+} from '@/ui/table'
+import { Share1Icon } from '@radix-ui/react-icons'
 
 interface Props {
-  platform: Platforms;
-  commands: EntityCommands[];
+  platform: Platforms
+  commands: EntityCommands[]
 }
 
 export function CustomCommandsView({ platform, commands }: Props) {
@@ -45,7 +42,7 @@ export function CustomCommandsView({ platform, commands }: Props) {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {commands?.map((item) => (
+            {commands?.map(item => (
               <TableRow key={item.id}>
                 <TableCell>
                   <div className="flex items-center">
@@ -70,7 +67,7 @@ export function CustomCommandsView({ platform, commands }: Props) {
         </Table>
       </div>
     </div>
-  );
+  )
 }
 
 function ShareButton() {
@@ -79,5 +76,5 @@ function ShareButton() {
       <Share1Icon className="size-4" />
       <span>Share</span>
     </Button>
-  );
+  )
 }

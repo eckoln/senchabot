@@ -5,5 +5,5 @@ export function Footer() {
         Copyright &copy; {new Date().getFullYear()} Senchabot.
       </p>
     </footer>
-  );
+  )
 }

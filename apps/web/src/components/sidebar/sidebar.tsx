@@ -1,14 +1,12 @@
-import { ChatBubbleIcon } from "@radix-ui/react-icons";
-
-import { getUserEntities } from "@/data-layer/queries";
-
-import { EntitySwitcher } from "./entity-switcher";
-import { Nav, NavItem } from "./nav";
-import { PlatformNav } from "./platform-nav";
-import { UserDropdown } from "./user-dropdown";
+import { EntitySwitcher } from './entity-switcher'
+import { Nav, NavItem } from './nav'
+import { PlatformNav } from './platform-nav'
+import { UserDropdown } from './user-dropdown'
+import { getUserEntities } from '@/data-layer/queries'
+import { ChatBubbleIcon } from '@radix-ui/react-icons'
 
 export async function Sidebar() {
-  let entities = await getUserEntities();
+  let entities = await getUserEntities()
 
   return (
     <div className="fixed left-0 top-0 z-20 flex h-full w-full max-w-xs shrink-0 flex-grow flex-col overflow-x-hidden border-r">
@@ -27,5 +25,5 @@ export async function Sidebar() {
         </Nav>
       </div>
     </div>
-  );
+  )
 }

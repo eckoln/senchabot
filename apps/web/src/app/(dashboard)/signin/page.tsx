@@ -1,8 +1,7 @@
-import { DiscordIcon, TwitchIcon } from "@/components/icons";
-
-import { Button } from "@/ui/button";
-import { Card } from "@/ui/card";
-import { Link } from "@/ui/link";
+import { DiscordIcon, TwitchIcon } from '@/components/icons'
+import { Button } from '@/ui/button'
+import { Card } from '@/ui/card'
+import { Link } from '@/ui/link'
 
 export default function Page() {
   return (
@@ -24,10 +23,10 @@ export default function Page() {
         </Button>
       </div>
       <p className="px-8 text-center text-sm text-muted-foreground">
-        By clicking continue, you agree to our{" "}
-        <Link href="/">Terms of Service</Link> and{" "}
+        By clicking continue, you agree to our{' '}
+        <Link href="/">Terms of Service</Link> and{' '}
         <Link href="/">Privacy Policy</Link>.
       </p>
     </Card>
-  );
+  )
 }

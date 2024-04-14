@@ -1,28 +1,25 @@
-"use client";
+'use client'
 
-import { useState } from "react";
+import { useState } from 'react'
 
-import { PlusIcon } from "@radix-ui/react-icons";
-
-import { Button } from "@/ui/button";
+import { CreateForm } from './create-form'
+import type { GuildChannels } from '@/lib/types'
+import { Button } from '@/ui/button'
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/ui/dialog";
-
-import type { GuildChannels } from "@/lib/types";
-
-import { CreateForm } from "./create-form";
+} from '@/ui/dialog'
+import { PlusIcon } from '@radix-ui/react-icons'
 
 interface Props {
-  guildChannels: GuildChannels[];
+  guildChannels: GuildChannels[]
 }
 
 export function CreateButton({ guildChannels }: Props) {
-  let [open, setOpen] = useState<boolean>(false);
+  let [open, setOpen] = useState<boolean>(false)
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -44,5 +41,5 @@ export function CreateButton({ guildChannels }: Props) {
         </DialogHeader>
       </DialogContent>
     </Dialog>
-  );
+  )
 }

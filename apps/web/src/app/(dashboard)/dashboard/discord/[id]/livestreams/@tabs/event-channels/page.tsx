@@ -1,6 +1,6 @@
-import { CreateForm } from "@/components/event-channels/create-form";
-import { DeleteButton } from "@/components/event-channels/delete-button";
-
+import { CreateForm } from '@/components/event-channels/create-form'
+import { DeleteButton } from '@/components/event-channels/delete-button'
+import { getEventChannels, getGuildChannels } from '@/data-layer/queries'
 import {
   Table,
   TableBody,
@@ -8,31 +8,29 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/ui/table";
-
-import { getEventChannels, getGuildChannels } from "@/data-layer/queries";
+} from '@/ui/table'
 
 interface Props {
   params: {
-    id: string;
-  };
+    id: string
+  }
 }
 
 export default async function Page({ params }: Props) {
   let [eventChannels, guildChannels] = await Promise.all([
     getEventChannels(params.id),
     getGuildChannels(params.id),
-  ]);
+  ])
 
   function getChannelName(id: string) {
-    return guildChannels.find((i) => i.id === id)?.name;
+    return guildChannels.find(i => i.id === id)?.name
   }
 
   function getUsableChannels() {
-    const channelIds = new Set(eventChannels.map((i) => i.channel_id));
-    return guildChannels.filter((i) => !channelIds.has(i.id));
+    const channelIds = new Set(eventChannels.map(i => i.channel_id))
+    return guildChannels.filter(i => !channelIds.has(i.id))
   }
-  let usableChannels = getUsableChannels();
+  let usableChannels = getUsableChannels()
 
   return (
     <>
@@ -51,7 +49,7 @@ export default async function Page({ params }: Props) {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {eventChannels?.map((item) => (
+            {eventChannels?.map(item => (
               <TableRow key={item.id}>
                 <TableCell>{getChannelName(item.channel_id)}</TableCell>
                 <TableCell className="text-end">
@@ -63,5 +61,5 @@ export default async function Page({ params }: Props) {
         </Table>
       </div>
     </>
-  );
+  )
 }

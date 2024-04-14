@@ -1,6 +1,6 @@
-import { CreateButton } from "@/components/announcements/create-button";
-import { DeleteButton } from "@/components/announcements/delete-button";
-
+import { CreateButton } from '@/components/announcements/create-button'
+import { DeleteButton } from '@/components/announcements/delete-button'
+import { getAnnouncements, getGuildChannels } from '@/data-layer/queries'
 import {
   Table,
   TableBody,
@@ -8,24 +8,22 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/ui/table";
-
-import { getAnnouncements, getGuildChannels } from "@/data-layer/queries";
+} from '@/ui/table'
 
 interface Props {
   params: {
-    id: string;
-  };
+    id: string
+  }
 }
 
 export default async function Page({ params }: Props) {
   let [announcements, guildChannels] = await Promise.all([
     getAnnouncements(params.id),
     getGuildChannels(params.id),
-  ]);
+  ])
 
   function getChannelName(id: string) {
-    return guildChannels.find((i) => i.id === id)?.name;
+    return guildChannels.find(i => i.id === id)?.name
   }
 
   return (
@@ -47,7 +45,7 @@ export default async function Page({ params }: Props) {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {announcements?.map((item) => (
+            {announcements?.map(item => (
               <TableRow key={item.id}>
                 <TableCell>{item.twitch_username}</TableCell>
                 <TableCell>
@@ -65,5 +63,5 @@ export default async function Page({ params }: Props) {
         </Table>
       </div>
     </>
-  );
+  )
 }
