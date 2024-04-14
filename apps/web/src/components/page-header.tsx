@@ -1,24 +1,25 @@
 import { cn } from "@/lib/utils";
 
-function PageHeader(props: React.ComponentPropsWithoutRef<"div">) {
+function PageHeader({
+  className,
+  ...props
+}: React.ComponentPropsWithoutRef<"div">) {
   return (
     <div
-      className={cn("mb-6 space-y-0.5 border-b pb-6", props.className)}
+      className={cn(
+        "mb-8 flex h-16 flex-row items-center border-b px-6",
+        className,
+      )}
       {...props}
     />
   );
 }
 
-function PageHeaderTitle(props: React.ComponentPropsWithoutRef<"h1">) {
-  return (
-    <h1 className={cn("text-2xl font-bold", props.className)} {...props} />
-  );
+function PageHeaderTitle({
+  className,
+  ...props
+}: React.ComponentPropsWithoutRef<"h1">) {
+  return <h1 className={cn("font-semibold", className)} {...props} />;
 }
 
-function PageHeaderDescription(props: React.ComponentPropsWithoutRef<"p">) {
-  return (
-    <p className={cn("text-muted-foreground", props.className)} {...props} />
-  );
-}
-
-export { PageHeader, PageHeaderTitle, PageHeaderDescription };
+export { PageHeader, PageHeaderTitle };

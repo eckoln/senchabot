@@ -1,8 +1,4 @@
-import {
-  PageHeader,
-  PageHeaderDescription,
-  PageHeaderTitle,
-} from "@/components/page-header";
+import { PageHeader, PageHeaderTitle } from "@/components/page-header";
 
 export default function Layout({
   tabs,
@@ -13,9 +9,6 @@ export default function Layout({
     <>
       <PageHeader>
         <PageHeaderTitle>Settings</PageHeaderTitle>
-        <PageHeaderDescription>
-          This is account settings page description.
-        </PageHeaderDescription>
       </PageHeader>
       {tabs}
     </>
