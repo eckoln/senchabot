@@ -1,9 +1,9 @@
-import { PageHeader, PageHeaderTitle } from "@/components/page-header";
+import { PageHeader, PageHeaderTitle } from '@/components/page-header'
 
 export default function Layout({
   tabs,
 }: Readonly<{
-  tabs: React.ReactNode;
+  tabs: React.ReactNode
 }>) {
   return (
     <>
@@ -12,5 +12,5 @@ export default function Layout({
       </PageHeader>
       <div className="px-6">{tabs}</div>
     </>
-  );
+  )
 }

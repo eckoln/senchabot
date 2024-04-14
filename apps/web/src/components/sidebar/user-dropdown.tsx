@@ -1,18 +1,17 @@
-"use client";
+'use client'
 
-import Link, { type LinkProps } from "next/link";
+import Link, { type LinkProps } from 'next/link'
 
-import { AvatarImage } from "@radix-ui/react-avatar";
-import { DotsHorizontalIcon } from "@radix-ui/react-icons";
-
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+} from '@/components/ui/dropdown-menu'
+import { AvatarImage } from '@radix-ui/react-avatar'
+import { DotsHorizontalIcon } from '@radix-ui/react-icons'
 
 export function UserDropdown() {
   return (
@@ -22,7 +21,7 @@ export function UserDropdown() {
           <div className="flex items-center space-x-2">
             <Avatar className="size-4">
               <AvatarImage src="https://randomuser.me/api/portraits/lego/7.jpg" />
-              <AvatarFallback>{"Username".charAt(0)}</AvatarFallback>
+              <AvatarFallback>{'Username'.charAt(0)}</AvatarFallback>
             </Avatar>
             <span>username</span>
           </div>
@@ -40,9 +39,9 @@ export function UserDropdown() {
         </div>
         <DropdownMenuSeparator />
         {[
-          { label: "My Account", path: "/dashboard/account" },
-          { label: "Connections", path: "/dashboard/account/connections" },
-          { label: "Sign out", path: "/dashboard/signout" },
+          { label: 'My Account', path: '/dashboard/account' },
+          { label: 'Connections', path: '/dashboard/account/connections' },
+          { label: 'Sign out', path: '/dashboard/signout' },
         ].map((item, index) => (
           <DropdownMenuLinkItem href={item.path} key={index}>
             {item.label}
@@ -50,16 +49,16 @@ export function UserDropdown() {
         ))}
       </DropdownMenuContent>
     </DropdownMenu>
-  );
+  )
 }
 
 function DropdownMenuLinkItem({
   className,
   ...props
-}: React.ComponentPropsWithoutRef<"a"> & LinkProps) {
+}: React.ComponentPropsWithoutRef<'a'> & LinkProps) {
   return (
     <DropdownMenuItem asChild>
       <Link {...props} />
     </DropdownMenuItem>
-  );
+  )
 }

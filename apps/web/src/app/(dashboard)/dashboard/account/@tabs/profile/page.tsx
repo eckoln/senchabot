@@ -1,5 +1,5 @@
-import { Input } from "@/ui/input";
-import { Label } from "@/ui/label";
+import { Input } from '@/ui/input'
+import { Label } from '@/ui/label'
 
 export default function Page() {
   return (
@@ -13,5 +13,5 @@ export default function Page() {
         <Input value="example@mail.com" disabled />
       </div>
     </div>
-  );
+  )
 }

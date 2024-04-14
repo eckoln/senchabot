@@ -1,3 +1,4 @@
+import type { EntityCommands } from '@/lib/types'
 import {
   Table,
   TableBody,
@@ -5,12 +6,10 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/ui/table";
-
-import type { EntityCommands } from "@/lib/types";
+} from '@/ui/table'
 
 interface Props {
-  commands: EntityCommands[];
+  commands: EntityCommands[]
 }
 
 export default async function GlobalCommandsView({ commands }: Props) {
@@ -44,5 +43,5 @@ export default async function GlobalCommandsView({ commands }: Props) {
         </Table>
       </div>
     </div>
-  );
+  )
 }

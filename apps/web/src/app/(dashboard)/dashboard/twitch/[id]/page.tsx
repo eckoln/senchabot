@@ -1,17 +1,16 @@
-import { AuditLogs } from "@/components/overview/audit-logs";
-import { BotControls } from "@/components/overview/bot-controls";
-import { PageHeader, PageHeaderTitle } from "@/components/page-header";
-
-import { getEntityLogs } from "@/data-layer/queries";
+import { AuditLogs } from '@/components/overview/audit-logs'
+import { BotControls } from '@/components/overview/bot-controls'
+import { PageHeader, PageHeaderTitle } from '@/components/page-header'
+import { getEntityLogs } from '@/data-layer/queries'
 
 interface Props {
   params: {
-    id: string;
-  };
+    id: string
+  }
 }
 
 export default async function Page({ params }: Props) {
-  let logs = await getEntityLogs("twitch", params.id);
+  let logs = await getEntityLogs('twitch', params.id)
 
   return (
     <>
@@ -23,5 +22,5 @@ export default async function Page({ params }: Props) {
         <BotControls />
       </div>
     </>
-  );
+  )
 }

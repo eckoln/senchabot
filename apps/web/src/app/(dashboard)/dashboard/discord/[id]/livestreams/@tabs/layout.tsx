@@ -1,24 +1,24 @@
-"use client";
+'use client'
 
-import Link from "next/link";
-import { useParams, useSelectedLayoutSegment } from "next/navigation";
+import Link from 'next/link'
+import { useParams, useSelectedLayoutSegment } from 'next/navigation'
 
-import { Tabs, TabsList, TabsTrigger } from "@/ui/tabs";
+import { Tabs, TabsList, TabsTrigger } from '@/ui/tabs'
 
 export default function Layout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: React.ReactNode
 }>) {
-  let currentTab = useSelectedLayoutSegment();
-  let params = useParams<{ id: string }>();
+  let currentTab = useSelectedLayoutSegment()
+  let params = useParams<{ id: string }>()
 
   return (
     <Tabs className="space-y-6" value={currentTab!}>
       <TabsList>
         {[
-          { label: "Announcements", value: "announcements" },
-          { label: "Event Channels", value: "event-channels" },
+          { label: 'Announcements', value: 'announcements' },
+          { label: 'Event Channels', value: 'event-channels' },
         ].map((item, index) => (
           <TabsTrigger value={item.value} key={index} asChild>
             <Link
@@ -31,5 +31,5 @@ export default function Layout({
       </TabsList>
       {children}
     </Tabs>
-  );
+  )
 }

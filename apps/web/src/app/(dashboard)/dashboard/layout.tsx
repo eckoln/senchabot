@@ -1,13 +1,12 @@
-import { Toaster } from "react-hot-toast";
-
-import { Footer } from "@/components/footer";
-import { ProgressBar } from "@/components/progressbar";
-import { Sidebar } from "@/components/sidebar/sidebar";
+import { Footer } from '@/components/footer'
+import { ProgressBar } from '@/components/progressbar'
+import { Sidebar } from '@/components/sidebar/sidebar'
+import { Toaster } from 'react-hot-toast'
 
 export default function Layout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: React.ReactNode
 }>) {
   return (
     <>
@@ -21,5 +20,5 @@ export default function Layout({
       <Toaster />
       <ProgressBar />
     </>
-  );
+  )
 }

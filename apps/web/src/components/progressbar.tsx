@@ -1,6 +1,6 @@
-"use client";
+'use client'
 
-import { AppProgressBar } from "next-nprogress-bar";
+import { AppProgressBar } from 'next-nprogress-bar'
 
 export function ProgressBar() {
   return (
@@ -10,5 +10,5 @@ export function ProgressBar() {
       options={{ showSpinner: false }}
       shallowRouting
     />
-  );
+  )
 }

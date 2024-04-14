@@ -1,10 +1,10 @@
-import { env } from "@/env";
+import { env } from '@/env'
 
-let BASE_URL = "https://api.senchabot.dev/v1/me";
+let BASE_URL = 'https://api.senchabot.dev/v1/me'
 
 function getUserAccessToken() {
   // transform to cookie call
-  return env.TEST_BEARER_TOKEN;
+  return env.TEST_BEARER_TOKEN
 }
 
 export async function fetcher<JSON = any>(
@@ -15,24 +15,24 @@ export async function fetcher<JSON = any>(
     headers: {
       ...options?.headers,
       Authorization: getUserAccessToken(),
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
     ...options,
-    cache: "no-store",
-  });
+    cache: 'no-store',
+  })
 
   if (!res.ok) {
-    const json = await res.json();
+    const json = await res.json()
     if (json.message) {
       const error = new Error(json.message) as Error & {
-        status: number;
-      };
-      error.status = res.status;
-      throw error;
+        status: number
+      }
+      error.status = res.status
+      throw error
     } else {
-      throw new Error("An unexpected error occurred");
+      throw new Error('An unexpected error occurred')
     }
   }
 
-  return res.json();
+  return res.json()
 }

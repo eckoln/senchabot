@@ -1,12 +1,10 @@
-import { Badge } from "@/ui/badge";
-
-import type { EntityLogs } from "@/lib/types";
-import { toDate } from "@/lib/utils";
-
-import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from '../ui/card'
+import type { EntityLogs } from '@/lib/types'
+import { toDate } from '@/lib/utils'
+import { Badge } from '@/ui/badge'
 
 interface Props {
-  logs: EntityLogs[];
+  logs: EntityLogs[]
 }
 
 export async function AuditLogs({ logs }: Props) {
@@ -38,5 +36,5 @@ export async function AuditLogs({ logs }: Props) {
         </ul>
       </CardContent>
     </Card>
-  );
+  )
 }

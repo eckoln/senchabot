@@ -1,20 +1,17 @@
-import { Pencil2Icon } from "@radix-ui/react-icons";
-
-import { Button } from "@/ui/button";
+import { UpdateForm } from './update-form'
+import type { EntityCommands } from '@/lib/types'
+import { Button } from '@/ui/button'
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/ui/dialog";
-
-import type { EntityCommands } from "@/lib/types";
-
-import { UpdateForm } from "./update-form";
+} from '@/ui/dialog'
+import { Pencil2Icon } from '@radix-ui/react-icons'
 
 interface Props {
-  command: EntityCommands;
+  command: EntityCommands
 }
 
 export function UpdateButton({ command }: Props) {
@@ -34,5 +31,5 @@ export function UpdateButton({ command }: Props) {
         </DialogHeader>
       </DialogContent>
     </Dialog>
-  );
+  )
 }

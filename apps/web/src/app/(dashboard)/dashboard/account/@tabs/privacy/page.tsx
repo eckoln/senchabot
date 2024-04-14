@@ -1,4 +1,4 @@
-import { Button } from "@/ui/button";
+import { Button } from '@/ui/button'
 
 export default function Page() {
   return (
@@ -13,5 +13,5 @@ export default function Page() {
         <Button variant="destructive">Delete My Account</Button>
       </div>
     </div>
-  );
+  )
 }
