@@ -17,7 +17,7 @@ export default async function Page({ params }: Props) {
       <PageHeader>
         <PageHeaderTitle>Settings</PageHeaderTitle>
       </PageHeader>
-      <div className="max-w-xl">
+      <div className="w-full max-w-xl px-6">
         <TwitchSettingsForm defaultSettings={defaultSettings} />
       </div>
     </>

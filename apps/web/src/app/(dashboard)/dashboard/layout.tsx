@@ -14,7 +14,7 @@ export default function Layout({
       <div className="relative flex flex-1 flex-row">
         <Sidebar />
         <div className="ml-80 flex flex-grow flex-col overflow-x-hidden">
-          <main className="flex-grow px-12 py-16">{children}</main>
+          <main className="flex-grow">{children}</main>
           <Footer />
         </div>
       </div>

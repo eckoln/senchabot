@@ -12,7 +12,7 @@ export async function Sidebar() {
 
   return (
     <div className="fixed left-0 top-0 z-20 flex h-full w-full max-w-xs shrink-0 flex-grow flex-col overflow-x-hidden border-r">
-      <div className="flex h-24 cursor-pointer select-none items-center justify-start border-b px-8" />
+      <div className="flex h-16 cursor-pointer select-none items-center justify-start border-b px-8" />
       <div className="flex flex-grow flex-col px-6 pb-4 pt-8">
         <div className="flex-grow space-y-4">
           <EntitySwitcher entities={entities} />

@@ -18,7 +18,7 @@ export default async function Page({ params }: Props) {
       <PageHeader>
         <PageHeaderTitle>Overview</PageHeaderTitle>
       </PageHeader>
-      <div className="grid grid-cols-3 gap-6">
+      <div className="grid grid-cols-3 gap-6 px-6">
         <AuditLogs logs={logs} />
         <BotControls />
       </div>

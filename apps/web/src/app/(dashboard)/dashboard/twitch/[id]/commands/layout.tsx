@@ -6,11 +6,11 @@ export default function Layout({
   tabs: React.ReactNode;
 }>) {
   return (
-    <>
+    <div className="space-y-6">
       <PageHeader>
         <PageHeaderTitle>Commands</PageHeaderTitle>
       </PageHeader>
-      {tabs}
-    </>
+      <div className="px-6">{tabs}</div>
+    </div>
   );
 }

@@ -35,7 +35,7 @@ export default async function Page({ params }: Props) {
   let usableChannels = getUsableChannels();
 
   return (
-    <div className="w-full max-w-xl space-y-4">
+    <>
       <div className="flex h-9 items-center justify-between">
         <p className="text-sm text-muted-foreground">
           {eventChannels?.length} items found.
@@ -62,6 +62,6 @@ export default async function Page({ params }: Props) {
           </TableBody>
         </Table>
       </div>
-    </div>
+    </>
   );
 }

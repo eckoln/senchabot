@@ -10,7 +10,7 @@ export default function Layout({
       <PageHeader>
         <PageHeaderTitle>Live Streams</PageHeaderTitle>
       </PageHeader>
-      {tabs}
+      <div className="w-full max-w-xl px-6">{tabs}</div>
     </>
   );
 }

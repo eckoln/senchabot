@@ -10,7 +10,7 @@ export default function Layout({
       <PageHeader>
         <PageHeaderTitle>Commands</PageHeaderTitle>
       </PageHeader>
-      {tabs}
+      <div className="px-6">{tabs}</div>
     </>
   );
 }
