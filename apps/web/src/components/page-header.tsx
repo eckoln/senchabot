@@ -7,7 +7,7 @@ function PageHeader({
   return (
     <div
       className={cn(
-        'mb-8 flex h-16 flex-row items-center border-b px-6',
+        'sticky top-0 z-20 mb-8 flex h-16 select-none flex-row items-center border-b bg-background px-6',
         className,
       )}
       {...props}
