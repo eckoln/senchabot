@@ -28,7 +28,7 @@ export async function createEventChannel(
 
   try {
     let params = new URLSearchParams({ platformEntityId })
-    await fetcher('/livestreams/event-channels?' + params, {
+    await fetcher('/me/livestreams/event-channels?' + params, {
       method: 'POST',
       body: JSON.stringify(input),
     })
@@ -63,7 +63,7 @@ export async function deleteEventChannel(input: DeleteEventChannelSchema) {
 
   try {
     let params = new URLSearchParams({ platformEntityId })
-    await fetcher(`/livestreams/event-channels/${id}?` + params, {
+    await fetcher(`/me/livestreams/event-channels/${id}?` + params, {
       method: 'DELETE',
     })
 

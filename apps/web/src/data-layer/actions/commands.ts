@@ -30,7 +30,7 @@ export async function createEntityCommand(
 
   try {
     let params = new URLSearchParams({ platform, platformEntityId })
-    await fetcher('/commands?' + params, {
+    await fetcher('/me/commands?' + params, {
       method: 'POST',
       body: JSON.stringify(input),
     })
@@ -70,7 +70,7 @@ export async function updateEntityCommand(
 
   try {
     let params = new URLSearchParams({ platform, platformEntityId })
-    await fetcher(`/commands/${id}?` + params, {
+    await fetcher(`/me/commands/${id}?` + params, {
       method: 'PATCH',
       body: JSON.stringify(input),
     })
@@ -105,7 +105,7 @@ export async function deleteEntityCommand(input: DeleteCommandSchema) {
 
   try {
     let params = new URLSearchParams({ platform, platformEntityId })
-    await fetcher(`/commands/${id}?` + params, { method: 'DELETE' })
+    await fetcher(`/me/commands/${id}?` + params, { method: 'DELETE' })
 
     return {
       success: true,

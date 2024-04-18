@@ -31,7 +31,7 @@ export async function createAnnouncement(
 
   try {
     let params = new URLSearchParams({ platformEntityId })
-    await fetcher('/livestreams/announcements?' + params, {
+    await fetcher('/me/livestreams/announcements?' + params, {
       method: 'POST',
       body: JSON.stringify(input),
     })
@@ -66,7 +66,7 @@ export async function deleteAnnouncement(input: DeleteAnnouncementSchema) {
 
   try {
     let params = new URLSearchParams({ platformEntityId })
-    await fetcher(`/livestreams/announcements/${id}?` + params, {
+    await fetcher(`/me/livestreams/announcements/${id}?` + params, {
       method: 'DELETE',
     })
 

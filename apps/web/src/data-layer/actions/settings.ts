@@ -32,7 +32,7 @@ export async function updateTwitchSettings(
 
   try {
     let params = new URLSearchParams({ platform, platformEntityId })
-    await fetcher('/platforms/settings?' + params, {
+    await fetcher('/me/platforms/settings?' + params, {
       method: 'PUT',
       body: JSON.stringify(keysArray),
     })
@@ -76,7 +76,7 @@ export async function updateDiscordSettings(
 
   try {
     let params = new URLSearchParams({ platform, platformEntityId })
-    await fetcher('/platforms/settings?' + params, {
+    await fetcher('/me/platforms/settings?' + params, {
       method: 'PUT',
       body: JSON.stringify(keysArray),
     })

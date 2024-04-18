@@ -14,7 +14,7 @@ import type {
  * getUserEntities
  */
 export async function getUserEntities(): Promise<UserEntities[]> {
-  return fetcher('/platforms')
+  return fetcher('/me/platforms')
 }
 
 /*
@@ -31,7 +31,7 @@ export async function getEntityCommands(
     platformEntityId,
     noCache: 'true',
   })
-  return fetcher('/commands?' + params, {
+  return fetcher('/me/commands?' + params, {
     next: {
       tags: [`getEntityCommands-${platformEntityId}-${type}`],
     },
@@ -46,7 +46,7 @@ export async function getEntityLogs(
   platformEntityId: string,
 ): Promise<EntityLogs[]> {
   let params = new URLSearchParams({ platform, platformEntityId })
-  return fetcher('/platforms/logs?' + params)
+  return fetcher('/me/platforms/logs?' + params)
 }
 
 /*
@@ -57,7 +57,7 @@ export async function getEntitySettings(
   platformEntityId: string,
 ): Promise<EntitySettings[]> {
   let params = new URLSearchParams({ platform, platformEntityId })
-  return fetcher('/platforms/settings?' + params)
+  return fetcher('/me/platforms/settings?' + params)
 }
 
 /*
@@ -67,7 +67,7 @@ export async function getGuildChannels(
   platformEntityId: string,
 ): Promise<GuildChannels[]> {
   let params = new URLSearchParams({ platformEntityId, noCache: 'true' })
-  return fetcher('/discord/guild-channels?' + params)
+  return fetcher('/me/discord/guild-channels?' + params)
 }
 
 /*
@@ -77,7 +77,7 @@ export async function getAnnouncements(
   platformEntityId: string,
 ): Promise<Announcements[]> {
   let params = new URLSearchParams({ platformEntityId, noCache: 'true' })
-  return fetcher('/livestreams/announcements?' + params, {
+  return fetcher('/me/livestreams/announcements?' + params, {
     next: { tags: [`getAnnouncements-${platformEntityId}`] },
   })
 }
@@ -89,7 +89,7 @@ export async function getEventChannels(
   platformEntityId: string,
 ): Promise<EventChannels[]> {
   let params = new URLSearchParams({ platformEntityId, noCache: 'true' })
-  return fetcher('/livestreams/event-channels?' + params, {
+  return fetcher('/me/livestreams/event-channels?' + params, {
     next: { tags: [`getEventChannels-${platformEntityId}`] },
   })
 }
