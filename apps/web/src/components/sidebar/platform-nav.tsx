@@ -9,6 +9,8 @@ import {
 } from 'next/navigation'
 
 import { Nav, NavItem } from './nav'
+import { DiscordIcon, TwitchIcon } from '@/components/icons'
+import { UserEntities } from '@/lib/types'
 import {
   GearIcon,
   HomeIcon,
@@ -51,7 +53,11 @@ function getNavItems(platform: string | null, entityId: string) {
   return items
 }
 
-export function PlatformNav() {
+interface Props {
+  entities: UserEntities[]
+}
+
+export function PlatformNav({ entities }: Props) {
   let currentPlatform = useSelectedLayoutSegment()
   let params = useParams<{ id: string }>()
   let pathname = usePathname()
@@ -61,18 +67,38 @@ export function PlatformNav() {
     [currentPlatform, params],
   )
 
+  let currentEntityName = useMemo(() => {
+    if (Boolean(entities.length)) {
+      return entities.find(i => i.platform_entity_id === params.id)?.entity_name
+    }
+  }, [entities, params])
+
   if (!navItems) {
     return null
   }
 
   return (
-    <Nav>
-      {navItems.map((item, index) => (
-        <NavItem href={item.path} isActive={item.path === pathname} key={index}>
-          <item.icon className="size-4" />
-          <span>{item.label}</span>
-        </NavItem>
-      ))}
-    </Nav>
+    <div className="flex flex-col space-y-2">
+      <div className="flex select-none flex-row items-center space-x-2 px-3 py-2 text-sm text-muted-foreground">
+        {currentPlatform === 'twitch' ? (
+          <TwitchIcon className="size-4 shrink-0" />
+        ) : (
+          <DiscordIcon className="size-4 shrink-0" />
+        )}
+        <span>{currentEntityName}</span>
+      </div>
+      <Nav>
+        {navItems.map(item => (
+          <NavItem
+            href={item.path}
+            isActive={item.path === pathname}
+            key={item.path}
+          >
+            <item.icon className="size-4" />
+            <span>{item.label}</span>
+          </NavItem>
+        ))}
+      </Nav>
+    </div>
   )
 }
