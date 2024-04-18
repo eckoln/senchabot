@@ -1,5 +1,11 @@
 export type Platforms = 'twitch' | 'discord'
 
+export interface UserAccounts {
+  user_id: string
+  provider: Platforms
+  provider_account_id: string
+}
+
 export interface UserEntities {
   id: string
   entity_name: string

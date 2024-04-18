@@ -7,8 +7,16 @@ import type {
   EventChannels,
   GuildChannels,
   Platforms,
+  UserAccounts,
   UserEntities,
 } from '@/lib/types'
+
+/*
+ * getUserAccounts
+ */
+export async function getUserAccounts(): Promise<UserAccounts[]> {
+  return fetcher('/me/accounts')
+}
 
 /*
  * getUserEntities

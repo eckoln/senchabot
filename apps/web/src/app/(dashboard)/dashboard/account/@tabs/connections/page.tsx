@@ -1,18 +1,23 @@
+import { redirect } from 'next/navigation'
+
 import { DiscordIcon, TwitchIcon } from '@/components/icons'
+import { getUserAccounts } from '@/data-layer/queries'
+import { auth } from '@/lib/auth'
 import { Cross1Icon, PlusIcon } from '@radix-ui/react-icons'
 
-export default function Page() {
+export default async function Page() {
+  let [session, accounts] = await Promise.all([auth(), getUserAccounts()])
+
+  if (!session) {
+    redirect('/signin')
+  }
+
   return (
     <div className="grid grid-cols-3 gap-6">
-      {[
-        { label: 'twitch-1', provider: 'twitch' },
-        { label: 'discord-1', provider: 'discord' },
-        { label: 'discord-2', provider: 'discord' },
-        { label: 'discord-3', provider: 'discord' },
-      ].map((item, index) => (
+      {accounts?.map(item => (
         <div
           className="group flex select-none items-center justify-between space-x-6 rounded-md border bg-card px-6 py-4"
-          key={index}
+          key={item.provider_account_id}
         >
           <div className="flex flex-row items-center space-x-6">
             {item.provider === 'twitch' ? (
@@ -21,10 +26,7 @@ export default function Page() {
               <DiscordIcon className="size-9 text-muted" />
             )}
             <div className="space-y-0.5">
-              <p className="text-sm font-medium">{item.label}</p>
-              <p className="text-sm text-muted-foreground">
-                Linked at {new Intl.DateTimeFormat('en').format(new Date())}
-              </p>
+              <p className="text-sm font-medium">{item.provider_account_id}</p>
             </div>
           </div>
           <button className="hidden shrink-0 items-center justify-center text-muted-foreground group-hover:inline-flex">
