@@ -1,8 +1,6 @@
-'use client'
-
 import Link, { type LinkProps } from 'next/link'
 
-import { Avatar, AvatarFallback } from '@/components/ui/avatar'
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -10,20 +8,24 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { AvatarImage } from '@radix-ui/react-avatar'
+import { auth } from '@/lib/auth'
 import { DotsHorizontalIcon } from '@radix-ui/react-icons'
 
-export function UserDropdown() {
+export async function UserDropdown() {
+  let session = await auth()
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <button className="inline-flex h-9 w-full items-center justify-between whitespace-nowrap rounded-md px-3 py-2 text-sm font-medium text-accent-foreground transition-colors hover:bg-accent/80 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring">
           <div className="flex items-center space-x-2">
             <Avatar className="size-4">
-              <AvatarImage src="https://randomuser.me/api/portraits/lego/7.jpg" />
-              <AvatarFallback>{'Username'.charAt(0)}</AvatarFallback>
+              <AvatarImage src={session?.user?.image ?? ''} />
+              <AvatarFallback>
+                {session?.user?.name?.toLocaleUpperCase().charAt(0)}
+              </AvatarFallback>
             </Avatar>
-            <span>username</span>
+            <span>{session?.user?.name}</span>
           </div>
           <DotsHorizontalIcon className="size-4 text-muted-foreground" />
         </button>
@@ -31,9 +33,11 @@ export function UserDropdown() {
       <DropdownMenuContent className="w-64" align="center" side="top">
         <div className="px-2 py-1.5 text-sm">
           <div className="space-y-1">
-            <p className="text-sm font-medium leading-none">username</p>
+            <p className="text-sm font-medium leading-none">
+              {session?.user?.name}
+            </p>
             <p className="text-xs leading-none text-muted-foreground">
-              example@mail.com
+              {session?.user?.email}
             </p>
           </div>
         </div>
