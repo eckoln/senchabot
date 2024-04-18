@@ -1,4 +1,3 @@
-import { Footer } from '@/components/footer'
 import { ProgressBar } from '@/components/progressbar'
 import { Sidebar } from '@/components/sidebar/sidebar'
 import { Toaster } from 'react-hot-toast'
@@ -9,16 +8,11 @@ export default function Layout({
   children: React.ReactNode
 }>) {
   return (
-    <>
-      <div className="relative flex flex-1 flex-row">
-        <Sidebar />
-        <div className="ml-80 flex grow flex-col overflow-x-hidden">
-          <main className="grow">{children}</main>
-          <Footer />
-        </div>
-      </div>
+    <div className="flex h-screen flex-row overflow-hidden">
+      <Sidebar />
+      <main className="grow overflow-auto">{children}</main>
       <Toaster />
       <ProgressBar />
-    </>
+    </div>
   )
 }
