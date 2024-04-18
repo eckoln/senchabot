@@ -1,65 +1,79 @@
 'use client'
 
-import { useMemo } from 'react'
-
-import { useParams, useRouter, useSelectedLayoutSegment } from 'next/navigation'
+import Link from 'next/link'
+import { useParams } from 'next/navigation'
 
 import { DiscordIcon, TwitchIcon } from '@/components/icons'
 import type { UserEntities } from '@/lib/types'
+import { Avatar, AvatarFallback, AvatarImage } from '@/ui/avatar'
+import { Button } from '@/ui/button'
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/ui/select'
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@/ui/tooltip'
+import { PlusIcon } from '@radix-ui/react-icons'
 
 interface Props {
   entities: UserEntities[]
 }
 
 export function EntitySwitcher({ entities }: Props) {
-  let currentPlatform = useSelectedLayoutSegment()
   let params = useParams<{ id: string }>()
-  let router = useRouter()
-
-  let currentEntity = useMemo(() => {
-    if (currentPlatform !== 'twitch' && currentPlatform !== 'discord') {
-      return undefined
-    }
-    return params.id
-  }, [currentPlatform, params])
-
-  function pushHandler(value: string) {
-    let foundEntity = entities.find(i => value === i.platform_entity_id)
-    if (foundEntity) {
-      return router.push(`/dashboard/${foundEntity.platform}/${value}`)
-    }
-  }
 
   return (
-    <Select
-      defaultValue={currentEntity}
-      onValueChange={pushHandler}
-      key={currentEntity}
-    >
-      <SelectTrigger>
-        <SelectValue placeholder="Select a Entity" />
-      </SelectTrigger>
-      <SelectContent>
-        {entities?.map((item, index) => (
-          <SelectItem value={item.platform_entity_id} key={index}>
-            <div className="flex items-center space-x-2">
-              {item.platform === 'twitch' ? (
-                <TwitchIcon className="size-4" />
-              ) : (
-                <DiscordIcon className="size-4" />
-              )}
-              <span className="max-w-48 truncate">{item.entity_name}</span>
-            </div>
-          </SelectItem>
-        ))}
-      </SelectContent>
-    </Select>
+    <div className="relative flex w-full max-w-fit shrink-0 flex-col space-y-4 overflow-y-auto px-3 py-4">
+      {entities?.map(item => (
+        <div
+          className="group flex flex-col items-center justify-center"
+          data-active={params.id === item.platform_entity_id}
+          key={item.platform_entity_id}
+        >
+          <span className="invisible absolute left-0 h-4 w-1 rounded-r-full bg-foreground transition-all group-hover:visible group-data-[active=true]:visible" />
+          <TooltipProvider delayDuration={0}>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Link
+                  className="relative inline-flex size-9 shrink-0 items-center justify-center transition-all"
+                  href={`/dashboard/${item.platform}/${item.platform_entity_id}`}
+                >
+                  <Avatar>
+                    <AvatarImage src={item.icon_url} />
+                    <AvatarFallback>
+                      {item.entity_name.slice(0, 2)}
+                    </AvatarFallback>
+                  </Avatar>
+                  <span className="absolute -bottom-1 -right-1 rounded-full bg-background">
+                    {item.platform === 'twitch' ? (
+                      <TwitchIcon className="size-4" />
+                    ) : (
+                      <DiscordIcon className="size-4" />
+                    )}
+                  </span>
+                </Link>
+              </TooltipTrigger>
+              <TooltipContent side="right" sideOffset={14}>
+                <span>{item.entity_name}</span>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+        </div>
+      ))}
+      <TooltipProvider delayDuration={0}>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Button variant="secondary" size="icon" asChild>
+              <Link href="/dashboard/account/connections">
+                <PlusIcon className="size-4" />
+              </Link>
+            </Button>
+          </TooltipTrigger>
+          <TooltipContent side="right" sideOffset={14}>
+            <span>Add New Connection</span>
+          </TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
+    </div>
   )
 }

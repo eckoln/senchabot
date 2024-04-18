@@ -9,20 +9,22 @@ export async function Sidebar() {
   let entities = await getUserEntities()
 
   return (
-    <div className="fixed left-0 top-0 z-20 flex size-full max-w-xs shrink-0 grow flex-col overflow-x-hidden border-r">
+    <div className="flex max-w-xs shrink-0 grow flex-col border-r">
       <div className="flex h-16 cursor-pointer select-none items-center justify-start border-b px-8" />
-      <div className="flex grow flex-col px-6 pb-4 pt-8">
-        <div className="grow space-y-4">
-          <EntitySwitcher entities={entities} />
-          <PlatformNav />
+      <div className="flex grow flex-row divide-x divide-border">
+        <EntitySwitcher entities={entities} />
+        <div className="flex w-full max-w-full grow flex-col overflow-y-auto px-3 py-4">
+          <div className="grow">
+            <PlatformNav entities={entities} />
+          </div>
+          <Nav>
+            <NavItem href="/support" target="_blank" rel="noreferrer">
+              <ChatBubbleIcon className="size-4" />
+              <span>Get Feedback</span>
+            </NavItem>
+            <UserDropdown />
+          </Nav>
         </div>
-        <Nav>
-          <NavItem href="/support" target="_blank" rel="noreferrer">
-            <ChatBubbleIcon className="size-4" />
-            <span>Get Feedback</span>
-          </NavItem>
-          <UserDropdown />
-        </Nav>
       </div>
     </div>
   )
