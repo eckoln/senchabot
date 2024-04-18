@@ -1,10 +1,16 @@
+import { cookies } from 'next/headers'
+
 import { env } from '@/env'
 
-let BASE_URL = 'https://api.senchabot.dev/v1/me'
+let BASE_URL = 'https://api.senchabot.dev/v1'
 
 function getUserAccessToken() {
-  // transform to cookie call
-  return env.TEST_BEARER_TOKEN
+  const cookieStore = cookies()
+  const token = cookieStore.get('authjs.session-token')
+  if (!token) {
+    return ''
+  }
+  return token.value
 }
 
 export async function fetcher<JSON = any>(
@@ -14,7 +20,7 @@ export async function fetcher<JSON = any>(
   const res = await fetch(BASE_URL + endpoint, {
     headers: {
       ...options?.headers,
-      Authorization: getUserAccessToken(),
+      Authorization: env.API_AUTHORIZATION_PREFIX + ' ' + getUserAccessToken(),
       'Content-Type': 'application/json',
     },
     ...options,
