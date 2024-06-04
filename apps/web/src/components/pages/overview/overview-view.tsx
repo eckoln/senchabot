@@ -1,11 +1,7 @@
 import { Suspense } from 'react'
 
-import { redirect } from 'next/navigation'
-
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { LoaderIcon } from '@/components/ui/icons'
-
-import { auth } from '@/lib/auth'
 
 import { EntityLogs } from './entity-logs'
 
@@ -14,13 +10,7 @@ interface Props {
   id: string
 }
 
-export async function OverviewView({ platform, id }: Props) {
-  const session = await auth()
-
-  if (!session) {
-    redirect('/signin')
-  }
-
+export function OverviewView({ platform, id }: Props) {
   return (
     <div className="max-w-screen-lg space-y-8">
       <div className="space-y-1">

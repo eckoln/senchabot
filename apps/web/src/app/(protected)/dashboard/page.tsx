@@ -1,24 +1,15 @@
 import { Suspense } from 'react'
 
 import type { Metadata } from 'next'
-import { redirect } from 'next/navigation'
 
 import { JoinedEntities } from '@/components/pages/dashboard/joined-entities'
 import { LoaderIcon } from '@/components/ui/icons'
-
-import { auth } from '@/lib/auth'
 
 export const metadata: Metadata = {
   title: 'Dashboard',
 }
 
-export default async function Page() {
-  const session = await auth()
-
-  if (!session) {
-    redirect('/signin')
-  }
-
+export default function Page() {
   return (
     <div className="max-w-screen-lg space-y-8">
       <div className="space-y-1">

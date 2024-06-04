@@ -1,11 +1,7 @@
 import { Suspense } from 'react'
 
-import { redirect } from 'next/navigation'
-
 import { Commands } from '@/components/pages/commands/commands'
 import { LoaderIcon } from '@/components/ui/icons'
-
-import { auth } from '@/lib/auth'
 
 interface Props {
   platform: Platform
@@ -13,13 +9,7 @@ interface Props {
   type: CommandType
 }
 
-export default async function CommandsWrapper({ platform, id, type }: Props) {
-  const session = await auth()
-
-  if (!session) {
-    redirect('/signin')
-  }
-
+export default function CommandsWrapper({ platform, id, type }: Props) {
   return (
     <Suspense
       fallback={
